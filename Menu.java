@@ -1,11 +1,12 @@
 package ass1Sem2;
 import java.util.Scanner;
 public class Menu {
-	Driver openNetwork = new Driver();
+	
 	public Menu() {
 			
 	}
 	Scanner input = new Scanner(System.in);
+	Network openNetwork = new Network();
 	
 	public void displayMenu() {
 		System.out.println("Menu Options");
@@ -24,7 +25,7 @@ public class Menu {
 			String blank = input.nextLine();
 				if (choice == 1) {
 					int age = 0;
-					System.out.println("Enter your name and age (hit return after each entry): ");
+					System.out.println("Enter your name and age. (hit return after each entry) ");
 					String name = input.nextLine();
 					try {
 					age = Integer.parseInt(input.nextLine());
@@ -32,20 +33,26 @@ public class Menu {
 						e.printStackTrace();
 					}
 					System.out.println("name entered: " + name + " age entered: "+ age);
-					openNetwork.addProfile(name, age);
+					openNetwork.createProfile(name, age);
 					openNetwork.display();
 					displayMenu();
 				}
 				else if(choice == 2) {
-					System.out.println("Enter your name and your friend's name separated by a space: ");
-					String[] parameters = input.nextLine().split(" ");
-					System.out.println("your name is " +parameters[0]+ " and your friend's name is "+parameters[1]);
-				openNetwork.addFriend(parameters[0], parameters[1]);
+					System.out.println("Enter your name and your friend's (hit return after each entry) ");
+					//String[] parameters = input.nextLine().split(" ");
+					String yourName = input.nextLine();
+					String friendsName = input.nextLine();
+					System.out.println("your name is " +yourName+ " and your friend's name is "+friendsName);
+					int currentIndex = openNetwork.getIndexByProperty(yourName);
+					if (openNetwork[currentIndex].getIsChild() == true) {
+					openNetwork.addFriend(yourName, friendsName);
+					}
 				openNetwork.display();
 				displayMenu();
 				}
 				else if (choice == 4) {
 				openNetwork.display();
+				displayMenu();
 				}else {
 					System.out.println("Methods not completed");
 					displayMenu();
