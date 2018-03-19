@@ -7,7 +7,7 @@ public class TestNetwork {
 		Menu startingMenu = new Menu();
 		
 		
-		startingMenu.menuSelect();
+		startingMenu.displayMenu();
 		
 		//openNetwork.addProfile("Sherri", 43);
 		//openNetwork.addProfile("Dan", 51);
