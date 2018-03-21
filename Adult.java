@@ -32,12 +32,20 @@ public class Adult extends Person {
 		return _spouse;
 	}
 
+	public void setInfo(String info) {
+		_info = info;
+	}
+
 	public void setSpouse(Person p) {
 		_spouse = p;
 	}
 
 	public void addFriend(Person p) {
 		_friends.add(p);
+	}
+
+	public void delFriend(Person p) {
+		_friends.remove(p);
 	}
 
 	public ArrayList<Person> getFriends() {

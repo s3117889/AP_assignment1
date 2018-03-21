@@ -1,20 +1,19 @@
 package AP_assignment1;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Driver {
 
-	final int quitMenu = 0;
-	final int addPerson = 1;
-	final int findPerson = 2;
-	final int displayProfile = 3;
-	final int displayAllProfile = 4;
-	final int updateProfile = 5;
-	final int deletePerson = 6;
-	final int connectPerson = 7;
-	final int findFriends = 8;
-	final int findFamily = 9;
+	final int quitMenu = 0; // done
+	final int addPerson = 1; // done
+	final int findPerson = 2; // done
+	final int displayProfile = 3; // done
+	final int displayAllProfile = 4; // done
+	final int updateProfile = 5; // done
+	final int deletePerson = 6; // not_done_yet
+	final int connectPerson = 7; // not_done_yet
+	final int findFriends = 8; // not_done_yet
+	final int findFamily = 9; // not_done_yet
 
 	public Driver() {
 
@@ -44,29 +43,30 @@ public class Driver {
 		}
 
 		if (menuItem == findPerson) {
-			Scanner input = new Scanner(System.in);
-			System.out.print("Enter Name: ");
-			String findName = input.nextLine();
-			System.out.println("");
+			Boolean found;
+			String findName;
 
-			Boolean found = findPerson(nt, findName);
+			findName = "Rudi"; // person does not exists
+			found = findPerson(nt, findName);
+			drawLine();
 
+			findName = "Rudi Basiran"; // person exists
+			found = findPerson(nt, findName);
 			drawLine();
 		}
 
 		else if (menuItem == displayProfile) {
 
-			Scanner input = new Scanner(System.in);
-			System.out.print("Enter Name: ");
-			String findName = input.nextLine();
-			System.out.println("");
+			Boolean found;
+			String findName;
 
+			findName = "Rudi"; // person does not exists
+			found = findPerson(nt, findName);
+			drawLine();
+
+			findName = "Rudi Basiran"; // person exists
 			if (findPerson(nt, findName)) {
-				int index = -1;
-				index = getIndexByProperty(nt, findName);
-				if (index >= 0) {
-					displayProfile(nt.get(index));
-				}
+				displayProfile(nt.get(getIndexByProperty(nt, findName)));
 			}
 
 			drawLine();
@@ -80,18 +80,62 @@ public class Driver {
 			}
 
 		} else if (menuItem == updateProfile) {
+
+			Boolean found;
+			String findName;
+
+			findName = "Rudi"; // person does not exists
+			found = findPerson(nt, findName);
+			drawLine();
+
+			findName = "Rudi Basiran"; // person exists
+			if (findPerson(nt, findName)) {
+				Person p = nt.get(getIndexByProperty(nt, findName));
+				// test update basic profile
+				if (p instanceof Adult) {
+					Adult a = (Adult) p;
+					a.setAge(47);
+					a.setInfo("IT Architect");
+				}
+			}
+
 			drawLine();
 
 		} else if (menuItem == deletePerson) {
+			// not_done_yet
 			drawLine();
 
 		} else if (menuItem == connectPerson) {
+			String findName = "Rudi Basiran";
+			if (findPerson(nt, findName)) {
+				Person p = nt.get(getIndexByProperty(nt, findName));
+
+				if (p instanceof Adult) {
+					Adult a = (Adult) p;
+					// test add friend
+					Adult na = (Adult) nt.get(getIndexByProperty(nt, "Nat James"));
+					a.addConnection(na, "Friend");
+
+					// test drop friend
+					Adult df = (Adult) nt.get(getIndexByProperty(nt, "Sherri McRae"));
+					df.delFriend(df);
+
+				}
+				// test update spouse
+				// not_done_yet
+
+				// test update child
+				// not_done_yet
+
+			}
 			drawLine();
 
 		} else if (menuItem == findFriends) {
+			// not_done_yet
 			drawLine();
 
 		} else if (menuItem == findFamily) {
+			// not_done_yet
 			drawLine();
 
 		}
