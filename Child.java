@@ -1,47 +1,47 @@
-package ass1Sem2;
+package AP_assignment1;
+
+import java.util.ArrayList;
 
 public class Child extends Person {
-	private boolean isChild = true;
-	private Person[] myParents = new Person[2];
-	
-	public Child(String name, int age) {
-		
-		}
-	
-	public boolean getIsChild() {
-		// TODO Auto-generated method stub
-		return isChild;
-	}
-	
-	@Override
-	public void addFriend(Person profile) {
-		myFriends.add(profile);
+	Person _father;
+	Person _mother;
+	ArrayList<Person> _friends = new ArrayList<>();
 
-}
-	@Override
-	public void addFriend(String name, String friend) {
-		int indexProfile = getIndexByProperty(name);
-		Person profile1 = network.get(indexProfile);
-		int indexFriend = getIndexByProperty(friend);
-		Person profile2 = network.get(indexFriend);
-		if (profile2 instanceof Adult) {
-			System.out.println("Sorry, you cannot be friends with an adult. ");
+	public Child(String name, int age, char g) {
+		super.setName(name);
+		super.setAge(age);
+		super.setGender(g);
+	}
+
+	public Person getFather() {
+		return _father;
+	}
+
+	public void setFather(Person p) {
+		_father = p;
+	}
+
+	public Person getMother() {
+		return _mother;
+	}
+
+	public void setMother(Person p) {
+		_mother = p;
+	}
+
+	public void addConnection(Person a, String role) {
+
+		if (role == "Friend") {
+			this.addFriend(a);
+			a.addFriend(this);
 		}
-		else if (profile2.getAge()<3) {
-			System.out.println("Sorry, you cannot be friends with a baby under 2 years. ");
-		}
-		else if(profile1.getAge()-profile2.getAge()>3) {
-			System.out.println("Sorry, you cannot be friends someone more than 3 years younger. ");
-		}
-		else if(profile2.getAge()-profile1.getAge()>3) {
-			System.out.println("Sorry, you cannot be friends someone more than 3 years older. ");
-		}
-		else if (profile2 instanceof Adult) {
-			System.out.println("Sorry, you cannot be friends with an adult. ");
-		}
-		else {
-			profile1.addFriend(profile2);
-			profile2.addFriend(profile1);
+
+		if (role == "Parent") {
+			if (a.getGender() == 'M')
+				this.setFather(a);
+			else
+				this.setMother(a);
 		}
 	}
+
 }

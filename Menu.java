@@ -1,65 +1,66 @@
-package ass1Sem2;
+package AP_assignment1;
+
 import java.util.Scanner;
+
 public class Menu {
-	
-	public Menu() {
-			
-	}
-	Scanner input = new Scanner(System.in);
-	Network openNetwork = new Network();
-	
+	int _choice;
+	Boolean _quit = false;
+
 	public void displayMenu() {
-		System.out.println("Menu Options");
-		System.out.println("1. Create profile");
-		System.out.println("2. Add Friends");
-		System.out.println("3. Add Spouse");
-		System.out.println("4. Print all profiles");
-		System.out.println("5. Print one profile");
-		System.out.println("Enter 0 to quit");
-		menuSelect();
+		System.out.println("Menu Options:");
+		System.out.println("1. Add Person");
+		System.out.println("2. Find Person");
+		System.out.println("3. Display Profile");
+		System.out.println("4. Update Profile");
+		System.out.println("5. Delete Person");
+		System.out.println("6. Connect Person");
+		System.out.println("7. Find Friends");
+		System.out.println("8. Find Family");
+		System.out.println("9. Update Person");
+		System.out.println("0. Quit");
+		System.out.print("Enter Option: ");
+
 	}
-		
-		public void menuSelect() {
-			System.out.println("Enter choice");
-			int choice = input.nextInt();
-			String blank = input.nextLine();
-				if (choice == 1) {
-					int age = 0;
-					System.out.println("Enter your name and age. (hit return after each entry) ");
-					String name = input.nextLine();
-					try {
-					age = Integer.parseInt(input.nextLine());
-					} catch (NumberFormatException e) {
-						e.printStackTrace();
-					}
-					System.out.println("name entered: " + name + " age entered: "+ age);
-					openNetwork.createProfile(name, age);
-					openNetwork.display();
-					displayMenu();
-				}
-				else if(choice == 2) {
-					System.out.println("Enter your name and your friend's (hit return after each entry) ");
-					//String[] parameters = input.nextLine().split(" ");
-					String yourName = input.nextLine();
-					String friendsName = input.nextLine();
-					System.out.println("your name is " +yourName+ " and your friend's name is "+friendsName);
-					int currentIndex = openNetwork.getIndexByProperty(yourName);
-					if (openNetwork[currentIndex].getIsChild() == true) {
-					openNetwork.addFriend(yourName, friendsName);
-					}
-				openNetwork.display();
-				displayMenu();
-				}
-				else if (choice == 4) {
-				openNetwork.display();
-				displayMenu();
-				}else {
-					System.out.println("Methods not completed");
-					displayMenu();
-		    }
-			
-	
+
+	public int getChoice() {
+		return _choice;
+	}
+
+	public Boolean notExit() {
+		return _quit;
+	}
+
+	public void menuSelect() {
+		Scanner input = new Scanner(System.in);
+		_choice = input.nextInt();
+
+		switch (_choice) {
+		case 1:
+
+		case 2:
+
+		case 3:
+
+		case 4:
+
+		case 5:
+
+		case 6:
+
+		case 7:
+
+		case 8:
+
+		case 9:
+			_quit = false;
+			break;
+		case 0:
+			_quit = true;
+			break;
+		default:
+			_quit = false;
+			break;
+		}
+
 	}
 }
-	
-	

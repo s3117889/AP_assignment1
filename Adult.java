@@ -1,58 +1,87 @@
-package ass1Sem2;
+package AP_assignment1;
+
+import java.util.ArrayList;
 
 public class Adult extends Person {
-	public boolean isChild = false;
-	Person spouse;
-	
-	public Adult(String name, int age) {
-		
-		}
-	
-	public boolean getIsChild() {
-		// TODO Auto-generated method stub
-		return isChild;
+
+	Person _spouse;
+	String _interest;
+	ArrayList<Person> _friends = new ArrayList<>();
+	ArrayList<Person> _children = new ArrayList<>();
+
+	public Adult(String name, int age, char g, String interest) {
+		super.setName(name);
+		super.setAge(age);
+		super.setGender(g);
+		_interest = interest;
 	}
 
-	@Override
-	public void addFriend(String name, String friend) {
-		int indexProfile = getIndexByProperty(name);
-		Person profile1 = network.get(indexProfile);
-		int indexFriend = getIndexByProperty(friend);
-		Person profile2 = network.get(indexFriend);
-		if (profile2 instanceof Child) {
-			System.out.println("Sorry, you cannot be friends with a child. ");
+	public Adult(String name, int age, char g) {
+		super.setName(name);
+		super.setAge(age);
+		super.setGender(g);
+
+	}
+
+	public Adult(String name, int age) {
+		super.setName(name);
+		super.setAge(age);
+	}
+
+	public Person getSpouse() {
+		return _spouse;
+	}
+
+	public void setSpouse(Person p) {
+		_spouse = p;
+	}
+
+	public void addFriend(Person p) {
+		_friends.add(p);
+	}
+
+	public ArrayList<Person> getFriends(Person p) {
+		return _friends;
+	}
+
+	public ArrayList<Person> getChildren(Person p) {
+		return _children;
+	}
+
+	public void addChild(Person p) {
+		_children.add(p);
+	}
+
+	public void addConnection(Person a, String role) {
+
+		if (role == "Friend") {
+			// System.out.println(this.getName() + ";" + a.getName());
+			_friends.add(a);
+			a.addFriend(this);
 		}
-		else {
-			profile1.addFriend(profile2);
-			profile2.addFriend(profile1);
+
+		else if (role == "Spouse") {
+			_spouse = a;
+			a.setSpouse(this);
+
+			if (_children != null) {
+				for (int i = 0; i < _children.size(); i++) {
+					a.addChild(_children.get(i));
+				}
+			}
+		}
+
+		else if (role == "Child") {
+			this.addChild(a);
+
+			if (_spouse != null) {
+				_spouse.addChild(a);
+			}
 		}
 	}
-		public void addSpouse(Person profile) {
-			spouse = profile;
-			}
-		public String getSpouseName() {
-			if(spouse != null) {
-			return spouse.getName();
-			}else {
-				return " ";
-			}
-		}
-	public void addSpouse(String name, String partner) {
-		int indexProfile = getIndexByProperty(name);
-		Person profile1 = network.get(indexProfile);
-		int indexPartner = getIndexByProperty(partner);
-		Person profile2 = network.get(indexPartner);
-		if(profile2 instanceof Adult) {
-			addSpouse(profile2);
-			addSpouse(profile1);
-			}
-		else {
-			System.out.println("You can only add another Adult as a spouse.");
-		}
+
+	public String getInterest() {
+		return _interest;
 	}
-	public void printSpouse(String profile) {
-		//int indexProfile = getIndexByProperty(profile);
-		//Person profile1 = network.get(indexProfile);
-		System.out.println("Spouse of "+getName()+ " is " + getSpouseName());
-	}
+
 }
