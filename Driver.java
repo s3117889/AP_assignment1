@@ -4,13 +4,6 @@ import java.util.ArrayList;
 
 public class Driver {
 
-	// not_done_yet deletePerson
-
-	// not_done_yet findFamily
-
-	// not_done_yet: check for friends below x
-	// not_done_yet: check for age difference 3 years old
-
 	public Driver() {
 
 	}
@@ -163,6 +156,11 @@ public class Driver {
 			GlobalClass.drawLine();
 
 		} else if (menuItem == GlobalClass.deletePerson) {
+			// not_done_yet: test delete solo person
+			// not_done_yet: test delete person with friends
+			// not_done_yet: test delete adult with child
+			// not_done_yet: test delete adult with spouse
+			// not_done_yet: test delete child with parent
 
 			GlobalClass.drawLine();
 
@@ -176,7 +174,7 @@ public class Driver {
 
 					Adult nj = (Adult) nt.get(getIndexByProperty(nt, "Nat James"));
 					Adult sm = (Adult) nt.get(getIndexByProperty(nt, "Sherri McRae"));
-					Adult js = new Adult("Jon Snow", 66, "M", "Captain");
+					Adult js = new Adult("Jon Snow", 40, "M", "Winter is coming");
 					nt.add(js); // add jon snow to the network
 
 					// test add and drop friend
@@ -214,10 +212,14 @@ public class Driver {
 					GlobalClass.drawLine();
 					displayProfile(sm);
 
-					// test update spouse with child
+					// not_done_yet: test update spouse with child
+					// not_done_yet: test update child (assume have parents)
+					// not_done_yet: check for friends below 2 years old
+					// not_done_yet: check for age difference cannot be more than 3 years old
+					// not_done_yet: check for child adding friends within family
+					// not_done_yet: check for child adding friends outside family
 
 				}
-				// not_done_yet: test update child (assume have parents)
 
 			}
 			GlobalClass.drawLine();
@@ -228,36 +230,21 @@ public class Driver {
 			Boolean foundFriend = false;
 			String findName, findFriend;
 
-			findName = "Rudi"; // person does not exists
-			findFriend = "Sherri "; // person does not exists
+			findName = "Rudi"; // test person does not exists
+			findFriend = "Sherri "; // test person does not exists
 			found = findPerson(nt, findName);
 			foundFriend = findPerson(nt, findFriend);
 			GlobalClass.drawLine();
 
-			findName = "Rudi Basiran"; // person exists
-			findFriend = "Sherri "; // person does not exists
+			findName = "Rudi Basiran"; // test person exists
+			findFriend = "Sherri "; // test person does not exists
 			found = findPerson(nt, findName);
 			foundFriend = findPerson(nt, findFriend);
 
 			GlobalClass.drawLine();
 
-			findName = "Rudi Basiran"; // person exists and are both friends
-			findFriend = "Sherri McRae"; // person exists and are both friends
-			found = findPerson(nt, findName);
-			foundFriend = findPerson(nt, findFriend);
-			GlobalClass.drawLine();
-
-			if (found && foundFriend) {
-				Person p = nt.get(getIndexByProperty(nt, findName));
-				Person q = nt.get(getIndexByProperty(nt, findFriend));
-
-				findFriends(p, q);
-				GlobalClass.drawLine();
-
-			}
-
-			findName = "Rudi Basiran"; // person exists and are NOT friends
-			findFriend = "Andrew James"; // person exists and are NOT friends
+			findName = "Rudi Basiran"; // test person exists and are both friends
+			findFriend = "Sherri McRae"; // test person exists and are both friends
 			found = findPerson(nt, findName);
 			foundFriend = findPerson(nt, findFriend);
 			GlobalClass.drawLine();
@@ -271,10 +258,77 @@ public class Driver {
 
 			}
 
-			else if (menuItem == GlobalClass.findFamily) {
-				// not_done_yet
+			findName = "Rudi Basiran"; // test person exists and are NOT friends
+			findFriend = "Andrew James"; // test person exists and are NOT friends
+			found = findPerson(nt, findName);
+			foundFriend = findPerson(nt, findFriend);
+			GlobalClass.drawLine();
+
+			if (found && foundFriend) {
+				Person p = nt.get(getIndexByProperty(nt, findName));
+				Person q = nt.get(getIndexByProperty(nt, findFriend));
+
+				findFriends(p, q);
 				GlobalClass.drawLine();
+
 			}
+		} else if (menuItem == GlobalClass.findFamily) {
+
+			String findName = "Rudi"; // test person does not exists
+			Boolean found = findPerson(nt, findName);
+			GlobalClass.drawLine();
+
+			findName = "Rudi Basiran"; // test adult with children
+
+			if (findPerson(nt, findName)) {
+				Person p = nt.get(getIndexByProperty(nt, findName));
+
+				if (p instanceof Adult) {
+					Adult a = (Adult) p;
+					findChildren(a);
+				}
+
+				if (p instanceof Child) {
+					Child c = (Child) p;
+					findParents(c);
+				}
+			}
+			GlobalClass.drawLine();
+
+			findName = "Rida Aqyda"; // test child with parent
+
+			if (findPerson(nt, findName)) {
+				Person p = nt.get(getIndexByProperty(nt, findName));
+
+				if (p instanceof Adult) {
+					Adult a = (Adult) p;
+					findChildren(a);
+				}
+
+				if (p instanceof Child) {
+					Child c = (Child) p;
+					findParents(c);
+				}
+			}
+			GlobalClass.drawLine();
+
+			findName = "Sherri McRae"; // test adult without children
+
+			if (findPerson(nt, findName)) {
+				Person p = nt.get(getIndexByProperty(nt, findName));
+
+				if (p instanceof Adult) {
+					Adult a = (Adult) p;
+					findChildren(a);
+				}
+
+				if (p instanceof Child) {
+					Child c = (Child) p;
+					findParents(c);
+				}
+			}
+			GlobalClass.drawLine();
+
 		}
 	}
 
@@ -361,7 +415,6 @@ public class Driver {
 			if (p instanceof Child) {
 				Child c = (Child) p;
 				findParents(c);
-
 			}
 		}
 	}
@@ -374,7 +427,8 @@ public class Driver {
 			for (int i = 0; i < children.size(); i++) {
 				System.out.println("- " + children.get(i).getName());
 			}
-		}
+		} else
+			System.out.println("Children: None");
 	}
 
 	public void findParents(Child c) {

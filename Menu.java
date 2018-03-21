@@ -49,6 +49,8 @@ public class Menu {
 		else if (_choice < 0 || _choice > _menuItems.length)
 			System.out.println("Invalid Option");
 
+		GlobalClass.drawLine();
+
 	}
 
 	public Boolean exitMenu() {
