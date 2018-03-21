@@ -63,9 +63,14 @@ public class Adult extends Person {
 	public void addConnection(Person a, String role) {
 
 		if (role == "Friend") {
-			// System.out.println(this.getName() + ";" + a.getName());
+
 			_friends.add(a);
 			a.addFriend(this);
+		}
+
+		else if (role == "!Friend") {
+			_friends.remove(a);
+			a.delFriend(this);
 		}
 
 		else if (role == "Spouse") {

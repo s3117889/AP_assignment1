@@ -52,6 +52,10 @@ public abstract class Person {
 
 	}
 
+	public void delFriend(Person p) {
+
+	}
+
 	public void addChild(Person p) {
 
 	}

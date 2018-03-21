@@ -4,16 +4,19 @@ import java.util.ArrayList;
 
 public class Driver {
 
-	final int quitMenu = 0; // done
-	final int addPerson = 1; // done
-	final int findPerson = 2; // done
-	final int displayProfile = 3; // done
-	final int displayAllProfile = 4; // done
-	final int updateProfile = 5; // done
+	final int quitMenu = 0;
+	final int addPerson = 1;
+	final int findPerson = 2;
+	final int displayProfile = 3;
+	final int displayAllProfile = 4;
+	final int updateProfile = 5;
 	final int deletePerson = 6; // not_done_yet
-	final int connectPerson = 7; // not_done_yet
+	final int connectPerson = 7;
 	final int findFriends = 8; // not_done_yet
 	final int findFamily = 9; // not_done_yet
+
+	// not_done_yet: check for friends below x
+	// not_done_yet: check for age difference 3 years old
 
 	public Driver() {
 
@@ -89,6 +92,7 @@ public class Driver {
 			drawLine();
 
 			findName = "Rudi Basiran"; // person exists
+
 			if (findPerson(nt, findName)) {
 				Person p = nt.get(getIndexByProperty(nt, findName));
 				// test update basic profile
@@ -111,21 +115,52 @@ public class Driver {
 				Person p = nt.get(getIndexByProperty(nt, findName));
 
 				if (p instanceof Adult) {
-					Adult a = (Adult) p;
-					// test add friend
-					Adult na = (Adult) nt.get(getIndexByProperty(nt, "Nat James"));
-					a.addConnection(na, "Friend");
+					Adult rb = (Adult) p;
 
-					// test drop friend
-					Adult df = (Adult) nt.get(getIndexByProperty(nt, "Sherri McRae"));
-					df.delFriend(df);
+					Adult nj = (Adult) nt.get(getIndexByProperty(nt, "Nat James"));
+					Adult sm = (Adult) nt.get(getIndexByProperty(nt, "Sherri McRae"));
+					Adult js = new Adult("Jon Snow", 66, "M", "Captain");
+					nt.add(js); // add jon snow to the network
+
+					// test add and drop friend
+
+					drawLine();
+					displayProfile(rb);
+					drawLine();
+					displayProfile(nj);
+					drawLine();
+					displayProfile(sm);
+					drawLine();
+
+					rb.addConnection(nj, "Friend");
+					rb.addConnection(sm, "!Friend");
+
+					drawLine();
+					displayProfile(rb);
+					drawLine();
+					displayProfile(nj);
+					drawLine();
+					displayProfile(sm);
+					drawLine();
+
+					// test update spouse without child
+
+					drawLine();
+					displayProfile(js);
+					drawLine();
+					displayProfile(sm);
+
+					js.addConnection(sm, "Spouse");
+
+					drawLine();
+					displayProfile(js);
+					drawLine();
+					displayProfile(sm);
+
+					// test update spouse with child
 
 				}
-				// test update spouse
-				// not_done_yet
-
-				// test update child
-				// not_done_yet
+				// not_done_yet: test update child (assume have parents)
 
 			}
 			drawLine();
