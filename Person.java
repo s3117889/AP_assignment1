@@ -1,38 +1,59 @@
-package ass1Sem2;
+package AP_assignment1;
 
-import java.util.ArrayList;
-public class Person {
-	String name;
-	int age;
-	ArrayList<Person> myFriends = new ArrayList<>();
-	Person spouse;
-	
-	public Person(String name, int age) {
-		this.name = name;
-		this.age = age;
+public abstract class Person {
+	private String _name;
+	private int _age;
+	private String _gender;
+
+	public Person() {
 	}
-		
+
 	public String getName() {
-	 return name;
-}
+		return _name;
+	}
+
+	public void setName(String name) {
+		_name = name;
+	}
+
 	public int getAge() {
-		return age;
+		return _age;
 	}
-	public void addFriend(Person profile) {
-		myFriends.add(profile);
+
+	public void setAge(int age) {
+		_age = age;
 	}
-	public void addSpouse(Person profile) {
-		spouse = profile;
-		
+
+	public String getGender() {
+		return _gender;
 	}
-	public String getSpouseName() {
-		if(spouse != null) {
-		return spouse.name;
-		}else {
-			return "none";
-		}
+
+	public void setGender(String g) {
+		_gender = g;
 	}
-	
-	
-	
+
+	public void addConnection(Person a, String role) {
+
+	}
+
+	public void setSpouse(Person p) {
+
+	}
+
+	public void setMother(Person p) {
+
+	}
+
+	public void setFather(Person p) {
+
+	}
+
+	public void addFriend(Person p) {
+
+	}
+
+	public void addChild(Person p) {
+
+	}
+
 }

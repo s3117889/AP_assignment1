@@ -1,58 +1,61 @@
-package ass1Sem2;
+package AP_assignment1;
+
 import java.util.Scanner;
+
 public class Menu {
-	Driver openNetwork = new Driver();
+	private int _choice;
+	private Boolean _quit;
+	private String[] _menuItems = new String[10];
+
 	public Menu() {
-			
+		_choice = 1;
+		_quit = false;
+		_menuItems[0] = "Quit";
+		_menuItems[1] = "Add Person";
+		_menuItems[2] = "Find Person";
+		_menuItems[3] = "Display Single Profile";
+		_menuItems[4] = "Display All Profile(s)";
+		_menuItems[5] = "Update Profile";
+		_menuItems[6] = "Delete Person";
+		_menuItems[7] = "Connect Person";
+		_menuItems[8] = "Find Friends";
+		_menuItems[9] = "Find Family";
+
 	}
-	Scanner input = new Scanner(System.in);
-	
+
+	public String getOption() {
+		return _menuItems[_choice];
+	}
+
 	public void displayMenu() {
-		System.out.println("Menu Options");
-		System.out.println("1. Create profile");
-		System.out.println("2. Add Friends");
-		System.out.println("3. Add Spouse");
-		System.out.println("4. Print all profiles");
-		System.out.println("5. Print one profile");
-		System.out.println("Enter 0 to quit");
-		menuSelect();
+
+		System.out.println("MiniNet Menu");
+
+		drawLine();
+
+		for (int i = 1; i < _menuItems.length; i++)
+			System.out.println((i) + ": " + _menuItems[i]);
+
+		System.out.println((0) + ": " + _menuItems[0]);
+
+		System.out.println("");
+		System.out.print("Enter Option: ");
+		Scanner input = new Scanner(System.in);
+		_choice = input.nextInt();
+
+		if (_choice == 0)
+			_quit = true;
+
 	}
-		
-		public void menuSelect() {
-			System.out.println("Enter choice");
-			int choice = input.nextInt();
-			String blank = input.nextLine();
-				if (choice == 1) {
-					int age = 0;
-					System.out.println("Enter your name and age (hit return after each entry): ");
-					String name = input.nextLine();
-					try {
-					age = Integer.parseInt(input.nextLine());
-					} catch (NumberFormatException e) {
-						e.printStackTrace();
-					}
-					System.out.println("name entered: " + name + " age entered: "+ age);
-					openNetwork.addProfile(name, age);
-					openNetwork.display();
-					displayMenu();
-				}
-				else if(choice == 2) {
-					System.out.println("Enter your name and your friend's name separated by a space: ");
-					String[] parameters = input.nextLine().split(" ");
-					System.out.println("your name is " +parameters[0]+ " and your friend's name is "+parameters[1]);
-				openNetwork.addFriend(parameters[0], parameters[1]);
-				openNetwork.display();
-				displayMenu();
-				}
-				else if (choice == 4) {
-				openNetwork.display();
-				}else {
-					System.out.println("Methods not completed");
-					displayMenu();
-		    }
-			
-	
+
+	public Boolean Exit() {
+		return _quit;
 	}
+
+	public void drawLine() {
+		for (int x = 0; x < 50; x++)
+			System.out.print("-");
+		System.out.println("");
+	}
+
 }
-	
-	
