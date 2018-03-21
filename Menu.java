@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class Menu {
 	private int _choice;
 	private Boolean _quit;
-	private String[] _menuItems = new String[10];
+
+	final int menuSize = 10;
 	final int quitMenu = 0;
 	final int addPerson = 1;
 	final int findPerson = 2;
@@ -16,6 +17,8 @@ public class Menu {
 	final int connectPerson = 7;
 	final int findFriends = 8;
 	final int findFamily = 9;
+
+	private String[] _menuItems = new String[menuSize];
 
 	public Menu() {
 		_choice = 1;
@@ -55,6 +58,8 @@ public class Menu {
 
 		if (_choice == 0)
 			_quit = true;
+		else if (_choice < 0 || _choice > _menuItems.length)
+			System.out.println("Invalid Option");
 
 	}
 
