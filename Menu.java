@@ -3,64 +3,59 @@ package AP_assignment1;
 import java.util.Scanner;
 
 public class Menu {
-	int _choice;
-	Boolean _quit = false;
+	private int _choice;
+	private Boolean _quit;
+	private String[] _menuItems = new String[10];
+
+	public Menu() {
+		_choice = 1;
+		_quit = false;
+		_menuItems[0] = "Quit";
+		_menuItems[1] = "Add Person";
+		_menuItems[2] = "Find Person";
+		_menuItems[3] = "Display Single Profile";
+		_menuItems[4] = "Display All Profile(s)";
+		_menuItems[5] = "Update Profile";
+		_menuItems[6] = "Delete Person";
+		_menuItems[7] = "Connect Person";
+		_menuItems[8] = "Find Friends";
+		_menuItems[9] = "Find Family";
+
+	}
+
+	public String getOption() {
+		return _menuItems[_choice];
+	}
 
 	public void displayMenu() {
-		System.out.println("Menu Options:");
-		System.out.println("1. Add Person");
-		System.out.println("2. Find Person");
-		System.out.println("3. Display Profile");
-		System.out.println("4. Update Profile");
-		System.out.println("5. Delete Person");
-		System.out.println("6. Connect Person");
-		System.out.println("7. Find Friends");
-		System.out.println("8. Find Family");
-		System.out.println("9. Update Person");
-		System.out.println("0. Quit");
+
+		System.out.println("MiniNet Menu");
+
+		drawLine();
+
+		for (int i = 1; i < _menuItems.length; i++)
+			System.out.println((i) + ": " + _menuItems[i]);
+
+		System.out.println((0) + ": " + _menuItems[0]);
+
+		System.out.println("");
 		System.out.print("Enter Option: ");
-
-	}
-
-	public int getChoice() {
-		return _choice;
-	}
-
-	public Boolean notExit() {
-		return _quit;
-	}
-
-	public void menuSelect() {
 		Scanner input = new Scanner(System.in);
 		_choice = input.nextInt();
 
-		switch (_choice) {
-		case 1:
-
-		case 2:
-
-		case 3:
-
-		case 4:
-
-		case 5:
-
-		case 6:
-
-		case 7:
-
-		case 8:
-
-		case 9:
-			_quit = false;
-			break;
-		case 0:
+		if (_choice == 0)
 			_quit = true;
-			break;
-		default:
-			_quit = false;
-			break;
-		}
 
 	}
+
+	public Boolean Exit() {
+		return _quit;
+	}
+
+	public void drawLine() {
+		for (int x = 0; x < 50; x++)
+			System.out.print("-");
+		System.out.println("");
+	}
+
 }

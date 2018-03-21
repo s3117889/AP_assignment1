@@ -5,18 +5,18 @@ import java.util.ArrayList;
 public class Adult extends Person {
 
 	Person _spouse;
-	String _interest;
+	String _info;
 	ArrayList<Person> _friends = new ArrayList<>();
 	ArrayList<Person> _children = new ArrayList<>();
 
-	public Adult(String name, int age, char g, String interest) {
+	public Adult(String name, int age, String g, String info) {
 		super.setName(name);
 		super.setAge(age);
 		super.setGender(g);
-		_interest = interest;
+		_info = info;
 	}
 
-	public Adult(String name, int age, char g) {
+	public Adult(String name, int age, String g) {
 		super.setName(name);
 		super.setAge(age);
 		super.setGender(g);
@@ -40,11 +40,11 @@ public class Adult extends Person {
 		_friends.add(p);
 	}
 
-	public ArrayList<Person> getFriends(Person p) {
+	public ArrayList<Person> getFriends() {
 		return _friends;
 	}
 
-	public ArrayList<Person> getChildren(Person p) {
+	public ArrayList<Person> getChildren() {
 		return _children;
 	}
 
@@ -80,8 +80,8 @@ public class Adult extends Person {
 		}
 	}
 
-	public String getInterest() {
-		return _interest;
+	public String getInfo() {
+		return _info;
 	}
 
 }

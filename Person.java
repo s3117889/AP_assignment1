@@ -3,7 +3,7 @@ package AP_assignment1;
 public abstract class Person {
 	private String _name;
 	private int _age;
-	private char _gender;
+	private String _gender;
 
 	public Person() {
 	}
@@ -24,11 +24,11 @@ public abstract class Person {
 		_age = age;
 	}
 
-	public char getGender() {
+	public String getGender() {
 		return _gender;
 	}
 
-	public void setGender(char g) {
+	public void setGender(String g) {
 		_gender = g;
 	}
 

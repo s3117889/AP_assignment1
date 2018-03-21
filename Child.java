@@ -7,7 +7,7 @@ public class Child extends Person {
 	Person _mother;
 	ArrayList<Person> _friends = new ArrayList<>();
 
-	public Child(String name, int age, char g) {
+	public Child(String name, int age, String g) {
 		super.setName(name);
 		super.setAge(age);
 		super.setGender(g);
@@ -37,7 +37,7 @@ public class Child extends Person {
 		}
 
 		if (role == "Parent") {
-			if (a.getGender() == 'M')
+			if (a.getGender() == "M")
 				this.setFather(a);
 			else
 				this.setMother(a);
