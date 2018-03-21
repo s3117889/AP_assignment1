@@ -29,6 +29,10 @@ public class Child extends Person {
 		_mother = p;
 	}
 
+	public ArrayList<Person> getFriends() {
+		return _friends;
+	}
+
 	public void addConnection(Person a, String role) {
 
 		if (role == "Friend") {

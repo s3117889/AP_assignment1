@@ -6,7 +6,6 @@ public class Driver {
 
 	// not_done_yet deletePerson
 
-	// not_done_yet findFriends
 	// not_done_yet findFamily
 
 	// not_done_yet: check for friends below x
@@ -224,14 +223,105 @@ public class Driver {
 			GlobalClass.drawLine();
 
 		} else if (menuItem == GlobalClass.findFriends) {
-			// not_done_yet
+
+			Boolean found = false;
+			Boolean foundFriend = false;
+			String findName, findFriend;
+
+			findName = "Rudi"; // person does not exists
+			findFriend = "Sherri "; // person does not exists
+			found = findPerson(nt, findName);
+			foundFriend = findPerson(nt, findFriend);
 			GlobalClass.drawLine();
 
-		} else if (menuItem == GlobalClass.findFamily) {
-			// not_done_yet
+			findName = "Rudi Basiran"; // person exists
+			findFriend = "Sherri "; // person does not exists
+			found = findPerson(nt, findName);
+			foundFriend = findPerson(nt, findFriend);
+
 			GlobalClass.drawLine();
 
+			findName = "Rudi Basiran"; // person exists and are both friends
+			findFriend = "Sherri McRae"; // person exists and are both friends
+			found = findPerson(nt, findName);
+			foundFriend = findPerson(nt, findFriend);
+			GlobalClass.drawLine();
+
+			if (found && foundFriend) {
+				Person p = nt.get(getIndexByProperty(nt, findName));
+				Person q = nt.get(getIndexByProperty(nt, findFriend));
+
+				findFriends(p, q);
+				GlobalClass.drawLine();
+
+			}
+
+			findName = "Rudi Basiran"; // person exists and are NOT friends
+			findFriend = "Andrew James"; // person exists and are NOT friends
+			found = findPerson(nt, findName);
+			foundFriend = findPerson(nt, findFriend);
+			GlobalClass.drawLine();
+
+			if (found && foundFriend) {
+				Person p = nt.get(getIndexByProperty(nt, findName));
+				Person q = nt.get(getIndexByProperty(nt, findFriend));
+
+				findFriends(p, q);
+				GlobalClass.drawLine();
+
+			}
+
+			else if (menuItem == GlobalClass.findFamily) {
+				// not_done_yet
+				GlobalClass.drawLine();
+			}
 		}
+	}
+
+	public void findFriends(Person p) {
+		ArrayList<Person> friends = new ArrayList<>();
+		if (p instanceof Adult) {
+			Adult a = (Adult) p;
+			friends = a.getFriends();
+		} else if (p instanceof Child) {
+			Child a = (Child) p;
+			friends = a.getFriends();
+		}
+
+		if (friends.size() > 0) {
+			System.out.println("Friends: ");
+			for (int i = 0; i < friends.size(); i++) {
+				System.out.println("- " + friends.get(i).getName());
+			}
+		} else
+			System.out.println("Friends: None");
+
+	}
+
+	public void findFriends(Person p, Person q) {
+		boolean found = false;
+		ArrayList<Person> friends = new ArrayList<>();
+		if (p instanceof Adult) {
+			Adult a = (Adult) p;
+			friends = a.getFriends();
+		} else if (p instanceof Child) {
+			Child a = (Child) p;
+			friends = a.getFriends();
+		}
+
+		if (friends.size() > 0) {
+			for (int i = 0; i < friends.size(); i++) {
+				if (friends.get(i).getName() == q.getName())
+					found = true;
+				break;
+
+			}
+		}
+		if (found)
+			System.out.println(p.getName() + " and " + q.getName() + " are friends with each other.");
+		else
+			System.out.println(p.getName() + " and " + q.getName() + " are NOT friends of each other.");
+
 	}
 
 	public Boolean findPerson(ArrayList<Person> nt, String findName) {
@@ -263,32 +353,34 @@ public class Driver {
 				if (a.getSpouse() != null)
 					System.out.println("Spouse: " + a.getSpouse().getName());
 
-				ArrayList<Person> friends = new ArrayList<>();
-				friends = a.getFriends();
-				if (friends.size() > 0) {
-					System.out.println("Friends: ");
-					for (int i = 0; i < friends.size(); i++) {
-						System.out.println("- " + friends.get(i).getName());
-					}
-				}
+				findFriends(a);
+				findChildren(a);
 
-				ArrayList<Person> children = new ArrayList<>();
-				children = a.getChildren();
-				if (children.size() > 0) {
-					System.out.println("Children: ");
-					for (int i = 0; i < children.size(); i++) {
-						System.out.println("- " + children.get(i).getName());
-					}
-				}
 			}
 
 			if (p instanceof Child) {
 				Child c = (Child) p;
-				System.out.println("Parents: ");
-				System.out.println("- " + c.getFather().getName());
-				System.out.println("- " + c.getMother().getName());
+				findParents(c);
+
 			}
 		}
+	}
+
+	public void findChildren(Adult a) {
+		ArrayList<Person> children = new ArrayList<>();
+		children = a.getChildren();
+		if (children.size() > 0) {
+			System.out.println("Children: ");
+			for (int i = 0; i < children.size(); i++) {
+				System.out.println("- " + children.get(i).getName());
+			}
+		}
+	}
+
+	public void findParents(Child c) {
+		System.out.println("Parents: ");
+		System.out.println("- " + c.getFather().getName());
+		System.out.println("- " + c.getMother().getName());
 	}
 
 	public int getIndexByProperty(ArrayList<Person> nt, String name) {
