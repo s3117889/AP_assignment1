@@ -33,31 +33,24 @@ public abstract class Person {
 	}
 
 	public void addConnection(Person a, String role) {
-
 	}
 
 	public void setSpouse(Person p) {
-
 	}
 
 	public void setMother(Person p) {
-
 	}
 
 	public void setFather(Person p) {
-
 	}
 
 	public void addFriend(Person p) {
-
 	}
 
 	public void delFriend(Person p) {
-
 	}
 
 	public void addChild(Person p) {
-
 	}
 
 }

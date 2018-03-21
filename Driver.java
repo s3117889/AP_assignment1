@@ -4,16 +4,10 @@ import java.util.ArrayList;
 
 public class Driver {
 
-	final int quitMenu = 0;
-	final int addPerson = 1;
-	final int findPerson = 2;
-	final int displayProfile = 3;
-	final int displayAllProfile = 4;
-	final int updateProfile = 5;
-	final int deletePerson = 6; // not_done_yet
-	final int connectPerson = 7;
-	final int findFriends = 8; // not_done_yet
-	final int findFamily = 9; // not_done_yet
+	// not_done_yet deletePerson
+
+	// not_done_yet findFriends
+	// not_done_yet findFamily
 
 	// not_done_yet: check for friends below x
 	// not_done_yet: check for age difference 3 years old
@@ -88,7 +82,7 @@ public class Driver {
 
 	public void menuAction(int menuItem, ArrayList<Person> nt) {
 
-		if (menuItem == addPerson) {
+		if (menuItem == GlobalClass.addPerson) {
 			String name = "Jack Sparrow";
 			int age = 55;
 			String gender = "M";
@@ -106,54 +100,54 @@ public class Driver {
 				}
 				System.out.println("[" + name + "] added to MiniNet.");
 			}
-			drawLine();
+			GlobalClass.drawLine();
 		}
 
-		if (menuItem == findPerson) {
+		if (menuItem == GlobalClass.findPerson) {
 			Boolean found;
 			String findName;
 
 			findName = "Rudi"; // person does not exists
 			found = findPerson(nt, findName);
-			drawLine();
+			GlobalClass.drawLine();
 
 			findName = "Rudi Basiran"; // person exists
 			found = findPerson(nt, findName);
-			drawLine();
+			GlobalClass.drawLine();
 		}
 
-		else if (menuItem == displayProfile) {
+		else if (menuItem == GlobalClass.displayProfile) {
 
 			Boolean found;
 			String findName;
 
 			findName = "Rudi"; // person does not exists
 			found = findPerson(nt, findName);
-			drawLine();
+			GlobalClass.drawLine();
 
 			findName = "Rudi Basiran"; // person exists
 			if (findPerson(nt, findName)) {
 				displayProfile(nt.get(getIndexByProperty(nt, findName)));
 			}
 
-			drawLine();
+			GlobalClass.drawLine();
 
-		} else if (menuItem == displayAllProfile) {
-			drawLine();
+		} else if (menuItem == GlobalClass.displayAllProfile) {
+			GlobalClass.drawLine();
 
 			for (int i = 0; i < nt.size(); i++) {
 				displayProfile(nt.get(i));
-				drawLine();
+				GlobalClass.drawLine();
 			}
 
-		} else if (menuItem == updateProfile) {
+		} else if (menuItem == GlobalClass.updateProfile) {
 
 			Boolean found;
 			String findName;
 
 			findName = "Rudi"; // person does not exists
 			found = findPerson(nt, findName);
-			drawLine();
+			GlobalClass.drawLine();
 
 			findName = "Rudi Basiran"; // person exists
 
@@ -167,13 +161,13 @@ public class Driver {
 				}
 			}
 
-			drawLine();
+			GlobalClass.drawLine();
 
-		} else if (menuItem == deletePerson) {
+		} else if (menuItem == GlobalClass.deletePerson) {
 
-			drawLine();
+			GlobalClass.drawLine();
 
-		} else if (menuItem == connectPerson) {
+		} else if (menuItem == GlobalClass.connectPerson) {
 			String findName = "Rudi Basiran";
 			if (findPerson(nt, findName)) {
 				Person p = nt.get(getIndexByProperty(nt, findName));
@@ -188,37 +182,37 @@ public class Driver {
 
 					// test add and drop friend
 
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(rb);
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(nj);
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(sm);
-					drawLine();
+					GlobalClass.drawLine();
 
 					rb.addConnection(nj, "Friend");
 					rb.addConnection(sm, "!Friend");
 
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(rb);
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(nj);
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(sm);
-					drawLine();
+					GlobalClass.drawLine();
 
 					// test update spouse without child
 
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(js);
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(sm);
 
 					js.addConnection(sm, "Spouse");
 
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(js);
-					drawLine();
+					GlobalClass.drawLine();
 					displayProfile(sm);
 
 					// test update spouse with child
@@ -227,15 +221,15 @@ public class Driver {
 				// not_done_yet: test update child (assume have parents)
 
 			}
-			drawLine();
+			GlobalClass.drawLine();
 
-		} else if (menuItem == findFriends) {
+		} else if (menuItem == GlobalClass.findFriends) {
+			// not_done_yet
+			GlobalClass.drawLine();
 
-			drawLine();
-
-		} else if (menuItem == findFamily) {
-
-			drawLine();
+		} else if (menuItem == GlobalClass.findFamily) {
+			// not_done_yet
+			GlobalClass.drawLine();
 
 		}
 	}
@@ -308,9 +302,4 @@ public class Driver {
 		return result;
 	}
 
-	public void drawLine() {
-		for (int x = 0; x < 50; x++)
-			System.out.print("-");
-		System.out.println("");
-	}
 }

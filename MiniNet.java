@@ -10,7 +10,7 @@ public class MiniNet {
 		Menu menu = new Menu();
 		Driver driver = new Driver(_network);
 
-		while (!menu.Exit()) {
+		while (!menu.exitMenu()) {
 			menu.displayMenu();
 			driver.menuAction(menu.getOption(), _network);
 		}
