@@ -6,25 +6,35 @@ public class Menu {
 	private int _choice;
 	private Boolean _quit;
 	private String[] _menuItems = new String[10];
+	final int quitMenu = 0;
+	final int addPerson = 1;
+	final int findPerson = 2;
+	final int displayProfile = 3;
+	final int displayAllProfile = 4;
+	final int updateProfile = 5;
+	final int deletePerson = 6;
+	final int connectPerson = 7;
+	final int findFriends = 8;
+	final int findFamily = 9;
 
 	public Menu() {
 		_choice = 1;
 		_quit = false;
-		_menuItems[0] = "Quit";
-		_menuItems[1] = "Add Person";
-		_menuItems[2] = "Find Person";
-		_menuItems[3] = "Display Single Profile";
-		_menuItems[4] = "Display All Profile(s)";
-		_menuItems[5] = "Update Profile";
-		_menuItems[6] = "Delete Person";
-		_menuItems[7] = "Connect Person";
-		_menuItems[8] = "Find Friends";
-		_menuItems[9] = "Find Family";
+		_menuItems[quitMenu] = "Quit";
+		_menuItems[addPerson] = "Add Person";
+		_menuItems[findPerson] = "Find Person";
+		_menuItems[displayProfile] = "Display Single Profile";
+		_menuItems[displayAllProfile] = "Display All Profile(s)";
+		_menuItems[updateProfile] = "Update Profile";
+		_menuItems[deletePerson] = "Delete Person";
+		_menuItems[connectPerson] = "Connect Person";
+		_menuItems[findFriends] = "Find Friends";
+		_menuItems[findFamily] = "Find Family";
 
 	}
 
-	public String getOption() {
-		return _menuItems[_choice];
+	public int getOption() {
+		return _choice;
 	}
 
 	public void displayMenu() {
