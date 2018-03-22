@@ -2,6 +2,15 @@ package AP_assignment1;
 
 import java.util.Scanner;
 
+/*
+Title: RMIT Advanced Programming Assignment 1 
+Developer(s): 
+- Sherri McRae <s3117889@student.rmit.edu.au>
+- Rudi Basiran <s3665980@student.rmit.edu.au> 
+Date Created: 18 March 2018 
+Description: Driver class 
+ */
+
 public class Menu {
 	private int _choice;
 	private Boolean _quit;

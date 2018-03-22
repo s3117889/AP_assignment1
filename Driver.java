@@ -2,6 +2,15 @@ package AP_assignment1;
 
 import java.util.ArrayList;
 
+/*
+Title: RMIT Advanced Programming Assignment 1 
+Developer(s): 
+- Rudi Basiran <s3665980@student.rmit.edu.au> 
+- Sherri McRae <s3117889@student.rmit.edu.au>
+Date Created: 21 March 2018 
+Description: Driver class 
+ */
+
 public class Driver {
 
 	public Driver() {
@@ -95,7 +104,7 @@ public class Driver {
 			GlobalClass.drawLine();
 		}
 
-		if (menuItem == GlobalClass.findPerson) {
+		else if (menuItem == GlobalClass.findPerson) {
 			Boolean found;
 			String findName;
 
@@ -106,9 +115,7 @@ public class Driver {
 			findName = "Rudi Basiran"; // person exists
 			found = findPerson(nt, findName);
 			GlobalClass.drawLine();
-		}
-
-		else if (menuItem == GlobalClass.displayProfile) {
+		} else if (menuItem == GlobalClass.displayProfile) {
 
 			Boolean found;
 			String findName;
@@ -156,10 +163,34 @@ public class Driver {
 			GlobalClass.drawLine();
 
 		} else if (menuItem == GlobalClass.deletePerson) {
-			// not_done_yet: test delete solo person
+
+			Boolean found = false;
+			String findName = "Rudi"; // person does not exists
+			found = findPerson(nt, findName);
+			GlobalClass.drawLine();
+			findName = "Dianne James"; // test delete solo person
+
+			if (findPerson(nt, findName)) {
+				Person dj = nt.get(getIndexByProperty(nt, findName));
+
+				GlobalClass.drawLine();
+				displayProfile(dj);
+				nt.remove(dj);
+
+				GlobalClass.drawLine();
+				found = findPerson(nt, findName);
+				GlobalClass.drawLine();
+
+			}
+
 			// not_done_yet: test delete person with friends
+
+			// make use of rb.addConnection(sm, "!Friend");
+
 			// not_done_yet: test delete adult with child
 			// not_done_yet: test delete adult with spouse
+
+			// make use of rb.addConnection(sm, "!Spouse");
 			// not_done_yet: test delete child with parent
 
 			GlobalClass.drawLine();
@@ -365,10 +396,10 @@ public class Driver {
 
 		if (friends.size() > 0) {
 			for (int i = 0; i < friends.size(); i++) {
-				if (friends.get(i).getName() == q.getName())
+				if (friends.get(i).getName().equals(q.getName())) {
 					found = true;
-				break;
-
+					break;
+				}
 			}
 		}
 		if (found)

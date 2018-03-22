@@ -2,6 +2,15 @@ package AP_assignment1;
 
 import java.util.ArrayList;
 
+/*
+Title: RMIT Advanced Programming Assignment 1 
+Developer(s): 
+- Sherri McRae <s3117889@student.rmit.edu.au>
+- Rudi Basiran <s3665980@student.rmit.edu.au> 
+Date Created: 18 March 2018 
+Description: Adult class 
+ */
+
 public class Adult extends Person {
 
 	Person _spouse;
@@ -90,7 +99,8 @@ public class Adult extends Person {
 			if (_spouse != null) {
 				_spouse.addChild(a);
 			}
-		}
+		} else
+			System.out.println("Unknown relationship :" + role);
 	}
 
 	public String getInfo() {
