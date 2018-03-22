@@ -164,38 +164,37 @@ public class Driver {
 
 		} else if (menuItem == GlobalClass.deletePerson) {
 
-			Boolean found = false;
-			String findName = "Rudi"; // person does not exists
-			found = findPerson(nt, findName);
 			GlobalClass.drawLine();
-			findName = "Dianne James"; // test delete solo person
+			String findName[] = { "Rudi", "Rudi Basiran", "Dianne James" };
+			for (int i = 0; i < findName.length; i++) {
 
-			if (findPerson(nt, findName)) {
-				Person dj = nt.get(getIndexByProperty(nt, findName));
+				if (findPerson(nt, findName[i])) {
+					Person p = nt.get(getIndexByProperty(nt, findName[i]));
+					if (p instanceof Adult) {
+						Adult a = (Adult) p;
+						GlobalClass.drawLine();
+						displayProfile(a);
+						ArrayList<Person> friends = new ArrayList<>();
+						friends = a.getFriends();
+						nt.remove(a);
+						displayProfile(a);
+						GlobalClass.drawLine();
+					}
+				}
+				// test delete solo person
+				// not_done_yet: test delete person with friends
+				// make use of rb.addConnection(sm, "!Friend");
+				// not_done_yet: test delete adult with child
+				// not_done_yet: test delete adult with spouse
+				// make use of rb.addConnection(sm, "!Spouse");
+				// not_done_yet: test delete child with parent
 
 				GlobalClass.drawLine();
-				displayProfile(dj);
-				nt.remove(dj);
-
-				GlobalClass.drawLine();
-				found = findPerson(nt, findName);
-				GlobalClass.drawLine();
-
 			}
 
-			// not_done_yet: test delete person with friends
+		} else if (menuItem == GlobalClass.connectPerson)
 
-			// make use of rb.addConnection(sm, "!Friend");
-
-			// not_done_yet: test delete adult with child
-			// not_done_yet: test delete adult with spouse
-
-			// make use of rb.addConnection(sm, "!Spouse");
-			// not_done_yet: test delete child with parent
-
-			GlobalClass.drawLine();
-
-		} else if (menuItem == GlobalClass.connectPerson) {
+		{
 			String findName = "Rudi Basiran";
 			if (findPerson(nt, findName)) {
 				Person p = nt.get(getIndexByProperty(nt, findName));
@@ -363,7 +362,8 @@ public class Driver {
 		}
 	}
 
-	public void findFriends(Person p) {
+	public Boolean findFriends(Person p) {
+		Boolean haveFriends = false;
 		ArrayList<Person> friends = new ArrayList<>();
 		if (p instanceof Adult) {
 			Adult a = (Adult) p;
@@ -374,17 +374,20 @@ public class Driver {
 		}
 
 		if (friends.size() > 0) {
+			haveFriends = true;
 			System.out.println("Friends: ");
 			for (int i = 0; i < friends.size(); i++) {
 				System.out.println("- " + friends.get(i).getName());
 			}
 		} else
 			System.out.println("Friends: None");
+		return haveFriends;
 
 	}
 
-	public void findFriends(Person p, Person q) {
-		boolean found = false;
+	public Boolean findFriends(Person p, Person q) {
+		Boolean found = false;
+		Boolean haveFriends = false;
 		ArrayList<Person> friends = new ArrayList<>();
 		if (p instanceof Adult) {
 			Adult a = (Adult) p;
@@ -395,9 +398,11 @@ public class Driver {
 		}
 
 		if (friends.size() > 0) {
+			haveFriends = true;
 			for (int i = 0; i < friends.size(); i++) {
 				if (friends.get(i).getName().equals(q.getName())) {
 					found = true;
+
 					break;
 				}
 			}
@@ -406,6 +411,8 @@ public class Driver {
 			System.out.println(p.getName() + " and " + q.getName() + " are friends with each other.");
 		else
 			System.out.println(p.getName() + " and " + q.getName() + " are NOT friends of each other.");
+
+		return haveFriends;
 
 	}
 
@@ -450,16 +457,19 @@ public class Driver {
 		}
 	}
 
-	public void findChildren(Adult a) {
+	public Boolean findChildren(Adult a) {
+		Boolean haveFamily = false;
 		ArrayList<Person> children = new ArrayList<>();
 		children = a.getChildren();
 		if (children.size() > 0) {
+			haveFamily = true;
 			System.out.println("Children: ");
 			for (int i = 0; i < children.size(); i++) {
 				System.out.println("- " + children.get(i).getName());
 			}
 		} else
 			System.out.println("Children: None");
+		return haveFamily;
 	}
 
 	public void findParents(Child c) {

@@ -35,6 +35,9 @@ The following scenarios are tested and results indicated.
 - deletePerson
 	- test person does not exist
 	- test person exist
+	- test delete person with spouse
+	- test delete person with friends
+	- test delete child
 	
 - connectPerson
 	- test both person exist/not exists combination
