@@ -28,12 +28,12 @@ public class Driver {
 
 		Adult as = new Adult("Arthur Simanjuntak", 45, "M", "Wave Engineer");
 		Adult sr = new Adult("Sheree Reaver", 45, "F", "Civil Engineer");
-		Child rs = new Child("Rangi Simanjuntak", 7, "M");
-		Child ts = new Child("Tane Simanjuntak", 5, "M");
+		Child rs = new Child("Rangi Simanjuntak", 8, "M");
+		Child ts = new Child("Tane Simanjuntak", 6, "M");
 
 		Adult aj = new Adult("Andrew James", 45, "M", "HR Officer");
 		Adult nj = new Adult("Nat James", 45, "F");
-		Child cj = new Child("Callum James", 7, "M");
+		Child cj = new Child("Callum James", 8, "M");
 		Adult dj = new Adult("Dianne James", 75, "F");
 
 		Adult sm = new Adult("Sherri McRae", 43, "F", "Student");
@@ -116,10 +116,15 @@ public class Driver {
 			} else
 				System.out.println("[" + name + "] not found");
 
-		} else if (menuItem == GlobalClass.deletePerson)
-			deletePerson();
+		} else if (menuItem == GlobalClass.deletePerson) {
+			String name = GlobalClass.getStringInput("Enter Name: ");
+			if (findPerson(network, name)) {
+				Person p = network.get(getIndexByProperty(network, name));
+				deletePerson(p, network, connection);
+			} else
+				System.out.println("[" + name + "] not found");
 
-		else if (menuItem == GlobalClass.connectPerson) {
+		} else if (menuItem == GlobalClass.connectPerson) {
 			String input = GlobalClass.getStringInput("Enter Name of First Person (Friend or Parent): ");
 			if (findPerson(network, input)) {
 				Person p = network.get(getIndexByProperty(network, input));
@@ -178,7 +183,19 @@ public class Driver {
 
 	}
 
-	public void deletePerson() {
+	public void deletePerson(Person p, ArrayList<Person> nt, ArrayList<Relationship> connection) {
+
+		for (int i = connection.size() - 1; i >= 0; i--) {
+			if (connection.get(i).getPersonA().getName().equals(p.getName()))
+				connection.remove(i);
+		}
+
+		for (int i = connection.size() - 1; i >= 0; i--) {
+			if (connection.get(i).getPersonB().getName().equals(p.getName()))
+				connection.remove(i);
+		}
+
+		nt.remove(p);
 
 	}
 

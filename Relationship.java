@@ -11,12 +11,12 @@ Description: Relationship class
 
 public class Relationship {
 	private Person _personA;
-	private int _conn;
+	private int _connection;
 	private Person _personB;
 
 	public Relationship(Person a, int conn, Person b) {
 		_personA = a;
-		_conn = conn;
+		_connection = conn;
 		_personB = b;
 	}
 
@@ -29,6 +29,6 @@ public class Relationship {
 	}
 
 	public int getConn() {
-		return _conn;
+		return _connection;
 	}
 }
