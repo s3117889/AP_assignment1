@@ -15,10 +15,16 @@ public class MiniNet {
 
 	public static void main(String[] args) {
 		ArrayList<Person> _network = new ArrayList<>();
-		ArrayList<Relationship> _relationship = new ArrayList<>();
 
 		Menu menu = new Menu();
 		Driver driver = new Driver(_network);
+
+		while (!menu.exitMenu()) {
+			menu.displayMenu();
+			driver.menuAction(menu.getOption(), _network);
+		}
+
+		ArrayList<Relationship> _relationship = new ArrayList<>();
 
 		Person rb = _network.get(driver.getIndexByProperty(_network, "Rudi Basiran"));
 		Person aa = _network.get(driver.getIndexByProperty(_network, "Ahysa Ahmad"));
@@ -44,11 +50,6 @@ public class MiniNet {
 				System.out.println("R3 True");
 			}
 
-		}
-
-		while (!menu.exitMenu()) {
-			menu.displayMenu();
-			driver.menuAction(menu.getOption(), _network);
 		}
 
 	}
