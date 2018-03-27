@@ -23,6 +23,11 @@ public class GlobalClass {
 	public static int findFriends = 8;
 	public static int findFamily = 9;
 
+	public static int Friend = 0;
+	public static int Spouse = 1;
+	public static int Father = 2;
+	public static int Mother = 3;
+
 	public static void drawLine() {
 		for (int x = 0; x < 50; x++)
 			System.out.print("-");

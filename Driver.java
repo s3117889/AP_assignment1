@@ -17,7 +17,7 @@ public class Driver {
 
 	}
 
-	public Driver(ArrayList<Person> network) {
+	public Driver(ArrayList<Person> network, ArrayList<Relationship> connection) {
 		// start: initial set up of network
 		// creating people
 		Adult rb = new Adult("Rudi Basiran", 48, "M", "Systems Analyst");
@@ -53,35 +53,14 @@ public class Driver {
 		network.add(sm);
 
 		// adding connections
-		rb.addConnection(aa, "Spouse");
-		rb.addConnection(ra, "Child");
-		ra.addConnection(rb, "Parent");
-		ra.addConnection(aa, "Parent");
-
-		as.addConnection(sr, "Spouse");
-		as.addConnection(rs, "Child");
-		as.addConnection(ts, "Child");
-
-		rs.addConnection(as, "Parent");
-		rs.addConnection(sr, "Parent");
-
-		ts.addConnection(as, "Parent");
-		ts.addConnection(sr, "Parent");
-
-		aj.addConnection(nj, "Spouse");
-		aj.addConnection(cj, "Child");
-
-		cj.addConnection(aj, "Parent");
-		cj.addConnection(nj, "Parent");
-
-		rb.addConnection(sm, "Friend");
-		rb.addConnection(as, "Friend");
-		rb.addConnection(sr, "Friend");
+		connection.add(new Relationship(rb, GlobalClass.Spouse, aa));
+		connection.add(new Relationship(ra, GlobalClass.Father, rb));
+		connection.add(new Relationship(ra, GlobalClass.Mother, aa));
 
 		// end: initial set up of network
 	}
 
-	public void menuAction(int menuItem, ArrayList<Person> nt) {
+	public void menuAction(int menuItem, ArrayList<Person> nt, ArrayList<Relationship> rs) {
 		if (menuItem == GlobalClass.addPerson) {
 			String name = "Jack Sparrow";
 			int age = 55;

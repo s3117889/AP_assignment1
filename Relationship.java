@@ -1,27 +1,25 @@
 package AP_assignment1;
 
 public class Relationship {
-	private Person _main;
-	private String _conn;
-	private Person _ally;
+	private Person _personA;
+	private int _conn;
+	private Person _personB;
 
-	public Relationship(Person primary, String conn, Person secondary) {
-		_main = primary;
+	public Relationship(Person a, int conn, Person b) {
+		_personA = a;
 		_conn = conn;
-		_ally = secondary;
-
+		_personB = b;
 	}
 
-	public Person getMain() {
-		return _main;
+	public Person getPersonA() {
+		return _personA;
 	}
 
-	public Person getAlly() {
-		return _ally;
+	public Person getPersonB() {
+		return _personB;
 	}
 
-	public String getConn() {
+	public int getConn() {
 		return _conn;
 	}
-
 }

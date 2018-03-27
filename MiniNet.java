@@ -15,43 +15,46 @@ public class MiniNet {
 
 	public static void main(String[] args) {
 		ArrayList<Person> _network = new ArrayList<>();
+		ArrayList<Relationship> _relationship = new ArrayList<>();
 
 		Menu menu = new Menu();
-		Driver driver = new Driver(_network);
+		Driver driver = new Driver(_network, _relationship);
 
 		while (!menu.exitMenu()) {
 			menu.displayMenu();
-			driver.menuAction(menu.getOption(), _network);
+			driver.menuAction(menu.getOption(), _network, _relationship);
 		}
 
-		ArrayList<Relationship> _relationship = new ArrayList<>();
+		// test relationship class
 
 		Person rb = _network.get(driver.getIndexByProperty(_network, "Rudi Basiran"));
 		Person aa = _network.get(driver.getIndexByProperty(_network, "Ahysa Ahmad"));
 		Person sm = _network.get(driver.getIndexByProperty(_network, "Sherri McRae"));
 
-		Relationship r1 = new Relationship(rb, "Spouse", aa);
+		Relationship r1 = new Relationship(rb, GlobalClass.Spouse, aa);
 		_relationship.add(r1);
 
-		Relationship r2 = new Relationship(rb, "Friend", sm);
+		Relationship r2 = new Relationship(rb, GlobalClass.Friend, sm);
 		_relationship.add(r2);
 
-		Relationship r3 = new Relationship(rb, "Spouse", sm);
-		// r3 is not added so it does not "exist" even though it has been created
+		Relationship findRS = new Relationship(aa, GlobalClass.Friend, sm);
 
+		// iterate through relationships to find whether relationship A to B or
+		// vice-versa (B to A) exists
+		Boolean found = false;
+		System.out.println("Looking for: " + findRS.getPersonA().getName() + " | " + findRS.getConn() + " | "
+				+ findRS.getPersonB().getName());
 		for (int i = 0; i < _relationship.size(); i++) {
-			if (r1.equals(_relationship.get(i))) {
-				System.out.println("R1 True");
+			if (findRS.equals(_relationship.get(i)) | (findRS.getPersonA().equals(_relationship.get(i).getPersonB())
+					& findRS.getConn() == _relationship.get(i).getConn()
+					& findRS.getPersonB().equals(_relationship.get(i).getPersonA()))) {
+				found = true;
+				System.out.println("Found: " + _relationship.get(i).getPersonA().getName() + " | "
+						+ _relationship.get(i).getConn() + " | " + _relationship.get(i).getPersonB().getName());
 			}
-			if (r2.equals(_relationship.get(i))) {
-				System.out.println("R2 True");
-			}
-			if (r3.equals(_relationship.get(i))) {
-				System.out.println("R3 True");
-			}
-
 		}
-
+		if (!found)
+			System.out.println("Relationship not found");
 	}
 
 }
