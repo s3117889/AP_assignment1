@@ -82,7 +82,6 @@ public class Driver {
 	}
 
 	public void menuAction(int menuItem, ArrayList<Person> nt) {
-
 		if (menuItem == GlobalClass.addPerson) {
 			String name = "Jack Sparrow";
 			int age = 55;
@@ -181,7 +180,7 @@ public class Driver {
 						GlobalClass.drawLine();
 					}
 				}
-				// test delete solo person
+				// not_done_yet: test delete solo person
 				// not_done_yet: test delete person with friends
 				// make use of rb.addConnection(sm, "!Friend");
 				// not_done_yet: test delete adult with child
