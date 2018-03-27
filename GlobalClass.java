@@ -1,5 +1,7 @@
 package AP_assignment1;
 
+import java.util.Scanner;
+
 /*
 Title: RMIT Advanced Programming Assignment 1 
 Developer(s): 
@@ -27,6 +29,33 @@ public class GlobalClass {
 	public static int Spouse = 1;
 	public static int Father = 2;
 	public static int Mother = 3;
+
+	public static String roleDesc[] = { "Friend", "Spouse", "Father", "Mother" };
+
+	public static String getStringInput(String message) {
+		System.out.println("");
+		System.out.print(message + ": ");
+		Scanner sc = new Scanner(System.in);
+		String input = sc.nextLine();
+		return input;
+	}
+
+	public static int getIntegerInput(String message) {
+		System.out.println("");
+		Scanner sc = new Scanner(System.in);
+		int input;
+
+		do {
+			System.out.println(message);
+			while (!sc.hasNextInt()) {
+				sc.next();
+			}
+			input = sc.nextInt();
+		} while (input < 0);
+
+		return input;
+
+	}
 
 	public static void drawLine() {
 		for (int x = 0; x < 50; x++)

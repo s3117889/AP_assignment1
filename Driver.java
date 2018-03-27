@@ -14,11 +14,13 @@ Description: Driver class
 public class Driver {
 
 	public Driver() {
-
 	}
 
 	public Driver(ArrayList<Person> network, ArrayList<Relationship> connection) {
-		// start: initial set up of network
+
+		// start: initial set up of network for demo
+		// otherwise constructor is normally empty
+
 		// creating people
 		Adult rb = new Adult("Rudi Basiran", 48, "M", "Systems Analyst");
 		Adult aa = new Adult("Ahysa Ahmad", 45, "F");
@@ -31,10 +33,13 @@ public class Driver {
 
 		Adult aj = new Adult("Andrew James", 45, "M", "HR Officer");
 		Adult nj = new Adult("Nat James", 45, "F");
-		Adult dj = new Adult("Dianne James", 75, "F");
 		Child cj = new Child("Callum James", 7, "M");
+		Adult dj = new Adult("Dianne James", 75, "F");
 
 		Adult sm = new Adult("Sherri McRae", 43, "F", "Student");
+		Adult hn = new Adult("Huani Neupane", 28, "F", "Student");
+		Adult cl = new Adult("Chloe Loh", 25, "F", "Student");
+		Adult ah = new Adult("Ahmed Abdullah", 28, "M", "Student");
 
 		// adding people to the network
 		network.add(rb);
@@ -51,415 +56,222 @@ public class Driver {
 		network.add(dj);
 
 		network.add(sm);
+		network.add(hn);
+		network.add(cl);
+		network.add(ah);
 
 		// adding connections
 		connection.add(new Relationship(rb, GlobalClass.Spouse, aa));
-		connection.add(new Relationship(ra, GlobalClass.Father, rb));
-		connection.add(new Relationship(ra, GlobalClass.Mother, aa));
+		connection.add(new Relationship(rb, GlobalClass.Father, ra));
+		connection.add(new Relationship(aa, GlobalClass.Mother, ra));
+
+		connection.add(new Relationship(as, GlobalClass.Spouse, sr));
+		connection.add(new Relationship(as, GlobalClass.Father, rs));
+		connection.add(new Relationship(sr, GlobalClass.Mother, rs));
+
+		connection.add(new Relationship(as, GlobalClass.Father, ts));
+		connection.add(new Relationship(sr, GlobalClass.Mother, ts));
+
+		connection.add(new Relationship(aj, GlobalClass.Spouse, nj));
+		connection.add(new Relationship(aj, GlobalClass.Father, cj));
+		connection.add(new Relationship(nj, GlobalClass.Mother, cj));
+
+		connection.add(new Relationship(rb, GlobalClass.Friend, sm));
+		connection.add(new Relationship(rb, GlobalClass.Friend, hn));
+		connection.add(new Relationship(rb, GlobalClass.Friend, cl));
 
 		// end: initial set up of network
 	}
 
-	public void menuAction(int menuItem, ArrayList<Person> nt, ArrayList<Relationship> rs) {
-		if (menuItem == GlobalClass.addPerson) {
-			String name = "Jack Sparrow";
-			int age = 55;
-			String gender = "M";
+	public void menuAction(int menuItem, ArrayList<Person> network, ArrayList<Relationship> connection) {
 
-			if (findPerson(nt, name)) {
-				System.out.println("[" + name + "] already exists.");
-			} else {
-				if (age > 16) {
-					String info = "Pirate";
-					Adult na = new Adult(name, age, gender, info);
-					nt.add(na);
-				} else {
-					Child nc = new Child(name, age, gender);
-					nt.add(nc);
-				}
-				System.out.println("[" + name + "] added to MiniNet.");
-			}
-			GlobalClass.drawLine();
+		if (menuItem == GlobalClass.addPerson)
+			addPerson(network);
+
+		else if (menuItem == GlobalClass.findPerson)
+			findPerson(network);
+
+		else if (menuItem == GlobalClass.displayProfile) {
+			String name = GlobalClass.getStringInput("Enter Name: ");
+			if (findPerson(network, name)) {
+				Person p = network.get(getIndexByProperty(network, name));
+				displayProfile(p, connection);
+			} else
+				System.out.println("[" + name + "] not found");
 		}
 
-		else if (menuItem == GlobalClass.findPerson) {
-			Boolean found;
-			String findName;
-
-			findName = "Rudi"; // person does not exists
-			found = findPerson(nt, findName);
-			GlobalClass.drawLine();
-
-			findName = "Rudi Basiran"; // person exists
-			found = findPerson(nt, findName);
-			GlobalClass.drawLine();
-		} else if (menuItem == GlobalClass.displayProfile) {
-
-			Boolean found;
-			String findName;
-
-			findName = "Rudi"; // person does not exists
-			found = findPerson(nt, findName);
-			GlobalClass.drawLine();
-
-			findName = "Rudi Basiran"; // person exists
-			if (findPerson(nt, findName)) {
-				displayProfile(nt.get(getIndexByProperty(nt, findName)));
-			}
-
-			GlobalClass.drawLine();
-
-		} else if (menuItem == GlobalClass.displayAllProfile) {
-			GlobalClass.drawLine();
-
-			for (int i = 0; i < nt.size(); i++) {
-				displayProfile(nt.get(i));
+		else if (menuItem == GlobalClass.displayAllProfile) {
+			for (int i = 0; i < network.size(); i++) {
+				displayProfile(network.get(i), connection);
 				GlobalClass.drawLine();
 			}
 
 		} else if (menuItem == GlobalClass.updateProfile) {
+			String name = GlobalClass.getStringInput("Enter Name: ");
+			if (findPerson(network, name)) {
+				Person p = network.get(getIndexByProperty(network, name));
+				updateProfile(p);
+			} else
+				System.out.println("[" + name + "] not found");
 
-			Boolean found;
-			String findName;
+		} else if (menuItem == GlobalClass.deletePerson)
+			deletePerson();
 
-			findName = "Rudi"; // person does not exists
-			found = findPerson(nt, findName);
-			GlobalClass.drawLine();
+		else if (menuItem == GlobalClass.connectPerson)
+			connectPerson();
 
-			findName = "Rudi Basiran"; // person exists
+		else if (menuItem == GlobalClass.findFriends)
+			findFriends();
 
-			if (findPerson(nt, findName)) {
-				Person p = nt.get(getIndexByProperty(nt, findName));
-				// test update basic profile
-				if (p instanceof Adult) {
-					Adult a = (Adult) p;
-					a.setAge(47);
-					a.setInfo("IT Architect");
-				}
-			}
-
-			GlobalClass.drawLine();
-
-		} else if (menuItem == GlobalClass.deletePerson) {
-
-			GlobalClass.drawLine();
-			String findName[] = { "Rudi", "Rudi Basiran", "Dianne James" };
-			for (int i = 0; i < findName.length; i++) {
-
-				if (findPerson(nt, findName[i])) {
-					Person p = nt.get(getIndexByProperty(nt, findName[i]));
-					if (p instanceof Adult) {
-						Adult a = (Adult) p;
-						GlobalClass.drawLine();
-						displayProfile(a);
-						ArrayList<Person> friends = new ArrayList<>();
-						friends = a.getFriends();
-						nt.remove(a);
-						displayProfile(a);
-						GlobalClass.drawLine();
-					}
-				}
-				// not_done_yet: test delete solo person
-				// not_done_yet: test delete person with friends
-				// make use of rb.addConnection(sm, "!Friend");
-				// not_done_yet: test delete adult with child
-				// not_done_yet: test delete adult with spouse
-				// make use of rb.addConnection(sm, "!Spouse");
-				// not_done_yet: test delete child with parent
-
-				GlobalClass.drawLine();
-			}
-
-		} else if (menuItem == GlobalClass.connectPerson)
-
-		{
-			String findName = "Rudi Basiran";
-			if (findPerson(nt, findName)) {
-				Person p = nt.get(getIndexByProperty(nt, findName));
-
-				if (p instanceof Adult) {
-					Adult rb = (Adult) p;
-
-					Adult nj = (Adult) nt.get(getIndexByProperty(nt, "Nat James"));
-					Adult sm = (Adult) nt.get(getIndexByProperty(nt, "Sherri McRae"));
-					Adult js = new Adult("Jon Snow", 40, "M", "Winter is coming");
-					nt.add(js); // add jon snow to the network
-
-					// test add and drop friend
-
-					GlobalClass.drawLine();
-					displayProfile(rb);
-					GlobalClass.drawLine();
-					displayProfile(nj);
-					GlobalClass.drawLine();
-					displayProfile(sm);
-					GlobalClass.drawLine();
-
-					rb.addConnection(nj, "Friend");
-					rb.addConnection(sm, "!Friend");
-
-					GlobalClass.drawLine();
-					displayProfile(rb);
-					GlobalClass.drawLine();
-					displayProfile(nj);
-					GlobalClass.drawLine();
-					displayProfile(sm);
-					GlobalClass.drawLine();
-
-					// test update spouse without child
-
-					GlobalClass.drawLine();
-					displayProfile(js);
-					GlobalClass.drawLine();
-					displayProfile(sm);
-
-					js.addConnection(sm, "Spouse");
-
-					GlobalClass.drawLine();
-					displayProfile(js);
-					GlobalClass.drawLine();
-					displayProfile(sm);
-
-					// not_done_yet: test update spouse with child
-					// not_done_yet: test update child (assume have parents)
-					// not_done_yet: check for friends below 2 years old
-					// not_done_yet: check for age difference cannot be more than 3 years old
-					// not_done_yet: check for child adding friends within family
-					// not_done_yet: check for child adding friends outside family
-
-				}
-
-			}
-			GlobalClass.drawLine();
-
-		} else if (menuItem == GlobalClass.findFriends) {
-
-			Boolean found = false;
-			Boolean foundFriend = false;
-			String findName, findFriend;
-
-			findName = "Rudi"; // test person does not exists
-			findFriend = "Sherri "; // test person does not exists
-			found = findPerson(nt, findName);
-			foundFriend = findPerson(nt, findFriend);
-			GlobalClass.drawLine();
-
-			findName = "Rudi Basiran"; // test person exists
-			findFriend = "Sherri "; // test person does not exists
-			found = findPerson(nt, findName);
-			foundFriend = findPerson(nt, findFriend);
-
-			GlobalClass.drawLine();
-
-			findName = "Rudi Basiran"; // test person exists and are both friends
-			findFriend = "Sherri McRae"; // test person exists and are both friends
-			found = findPerson(nt, findName);
-			foundFriend = findPerson(nt, findFriend);
-			GlobalClass.drawLine();
-
-			if (found && foundFriend) {
-				Person p = nt.get(getIndexByProperty(nt, findName));
-				Person q = nt.get(getIndexByProperty(nt, findFriend));
-
-				findFriends(p, q);
-				GlobalClass.drawLine();
-
-			}
-
-			findName = "Rudi Basiran"; // test person exists and are NOT friends
-			findFriend = "Andrew James"; // test person exists and are NOT friends
-			found = findPerson(nt, findName);
-			foundFriend = findPerson(nt, findFriend);
-			GlobalClass.drawLine();
-
-			if (found && foundFriend) {
-				Person p = nt.get(getIndexByProperty(nt, findName));
-				Person q = nt.get(getIndexByProperty(nt, findFriend));
-
-				findFriends(p, q);
-				GlobalClass.drawLine();
-
-			}
-		} else if (menuItem == GlobalClass.findFamily) {
-
-			String findName = "Rudi"; // test person does not exists
-			Boolean found = findPerson(nt, findName);
-			GlobalClass.drawLine();
-
-			findName = "Rudi Basiran"; // test adult with children
-
-			if (findPerson(nt, findName)) {
-				Person p = nt.get(getIndexByProperty(nt, findName));
-
-				if (p instanceof Adult) {
-					Adult a = (Adult) p;
-					findChildren(a);
-				}
-
-				if (p instanceof Child) {
-					Child c = (Child) p;
-					findParents(c);
-				}
-			}
-			GlobalClass.drawLine();
-
-			findName = "Rida Aqyda"; // test child with parent
-
-			if (findPerson(nt, findName)) {
-				Person p = nt.get(getIndexByProperty(nt, findName));
-
-				if (p instanceof Adult) {
-					Adult a = (Adult) p;
-					findChildren(a);
-				}
-
-				if (p instanceof Child) {
-					Child c = (Child) p;
-					findParents(c);
-				}
-			}
-			GlobalClass.drawLine();
-
-			findName = "Sherri McRae"; // test adult without children
-
-			if (findPerson(nt, findName)) {
-				Person p = nt.get(getIndexByProperty(nt, findName));
-
-				if (p instanceof Adult) {
-					Adult a = (Adult) p;
-					findChildren(a);
-				}
-
-				if (p instanceof Child) {
-					Child c = (Child) p;
-					findParents(c);
-				}
-			}
-			GlobalClass.drawLine();
-
-		}
+		else if (menuItem == GlobalClass.findFamily)
+			findFamily();
 	}
 
-	public Boolean findFriends(Person p) {
-		Boolean haveFriends = false;
-		ArrayList<Person> friends = new ArrayList<>();
+	public void updateProfile(Person p) {
+
+		Adult a = (Adult) p;
+		int newAge = GlobalClass.getIntegerInput("Enter New Age: ");
+		a.setAge(newAge);
+		String newInfo = GlobalClass.getStringInput("Enter New Info: ");
+		a.setInfo(newInfo);
+
+	}
+
+	public void deletePerson() {
+
+	}
+
+	public void connectPerson() {
+
+	}
+
+	public void findFriends() {
+
+	}
+
+	public void findFamily() {
+
+	}
+
+	public void displayProfile(Person p, ArrayList<Relationship> connection) {
+		System.out.println("Name: " + p.getName() + ", (" + p.getGender() + "), " + p.getAge());
 		if (p instanceof Adult) {
 			Adult a = (Adult) p;
-			friends = a.getFriends();
-		} else if (p instanceof Child) {
-			Child a = (Child) p;
-			friends = a.getFriends();
-		}
+			if (a.getInfo() != null)
+				System.out.println("About: " + a.getInfo());
 
-		if (friends.size() > 0) {
-			haveFriends = true;
-			System.out.println("Friends: ");
-			for (int i = 0; i < friends.size(); i++) {
-				System.out.println("- " + friends.get(i).getName());
-			}
-		} else
-			System.out.println("Friends: None");
-		return haveFriends;
+			findSpouse(p, connection);
+			findChildren(p, connection);
+			findFriends(p, connection);
+		}
+		if (p instanceof Child) {
+			Child c = (Child) p;
+			findParents(c, connection);
+			findFriends(c, connection);
+		}
+	}
+
+	public void findParents(Person p, ArrayList<Relationship> connection) {
+
+		for (int i = 0; i < connection.size(); i++) {
+			if (connection.get(i).getPersonB().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.Father)
+				System.out.println("Father: " + connection.get(i).getPersonA().getName());
+
+			if (connection.get(i).getPersonB().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.Mother)
+				System.out.println("Mother: " + connection.get(i).getPersonA().getName());
+		}
 
 	}
 
-	public Boolean findFriends(Person p, Person q) {
-		Boolean found = false;
-		Boolean haveFriends = false;
-		ArrayList<Person> friends = new ArrayList<>();
-		if (p instanceof Adult) {
-			Adult a = (Adult) p;
-			friends = a.getFriends();
-		} else if (p instanceof Child) {
-			Child a = (Child) p;
-			friends = a.getFriends();
-		}
+	public void findFriends(Person p, ArrayList<Relationship> connection) {
+		int count = 0;
 
-		if (friends.size() > 0) {
-			haveFriends = true;
-			for (int i = 0; i < friends.size(); i++) {
-				if (friends.get(i).getName().equals(q.getName())) {
-					found = true;
-
-					break;
-				}
+		for (int i = 0; i < connection.size(); i++) {
+			if (connection.get(i).getPersonA().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.Friend) {
+				count++;
+				System.out.println(((count == 1) ? "Friends :\n-" : "-") + connection.get(i).getPersonB().getName());
+			}
+			if (connection.get(i).getPersonB().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.Friend) {
+				count++;
+				System.out.println(((count == 1) ? "Friends :\n-" : "-") + connection.get(i).getPersonA().getName());
 			}
 		}
-		if (found)
-			System.out.println(p.getName() + " and " + q.getName() + " are friends with each other.");
-		else
-			System.out.println(p.getName() + " and " + q.getName() + " are NOT friends of each other.");
+	}
 
-		return haveFriends;
+	public void findChildren(Person p, ArrayList<Relationship> connection) {
+		int count = 0;
+		for (int i = 0; i < connection.size(); i++) {
+			if (connection.get(i).getPersonA().getName().equals(p.getName()) & connection.get(i)
+					.getConn() == ((p.getGender() == "M") ? GlobalClass.Father : GlobalClass.Mother)) {
+				count++;
+				System.out.println(((count == 1) ? "Children :\n-" : "-") + connection.get(i).getPersonB().getName());
+			}
+		}
 
 	}
 
-	public Boolean findPerson(ArrayList<Person> nt, String findName) {
+	public void findSpouse(Person p, ArrayList<Relationship> connection) {
 
-		int index = -1;
-		index = getIndexByProperty(nt, findName);
+		for (int i = 0; i < connection.size(); i++) {
+			if (connection.get(i).getPersonA().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.Spouse) {
+				System.out.println("Spouse: " + connection.get(i).getPersonB().getName());
 
-		if (index >= 0) {
-			System.out.print("Found: ");
-			System.out.println(
-					nt.get(index).getName() + ", (" + nt.get(index).getGender() + "), " + nt.get(index).getAge());
+			} else if (connection.get(i).getPersonB().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.Spouse) {
+				System.out.println("Spouse: " + connection.get(i).getPersonA().getName());
+
+			}
+		}
+
+	}
+
+	public void addPerson(ArrayList<Person> nt) {
+
+		String name = GlobalClass.getStringInput("Enter Name: ");
+		if (findPerson(nt, name))
+			System.out.println("[" + nt.get(getIndexByProperty(nt, name)).getName() + "] already exists.");
+		else {
+			int age = GlobalClass.getIntegerInput("Enter Age: ");
+
+			String gender = GlobalClass.getStringInput("Enter Gender (M/F): ");
+
+			if (age > 16) {
+				String info = GlobalClass.getStringInput("Enter Info: ");
+				Adult na = new Adult(name, age, gender, info);
+				nt.add(na);
+			} else {
+				Child nc = new Child(name, age, gender);
+				nt.add(nc);
+			}
+			System.out.println("[" + name + "] added to MiniNet.");
+		}
+
+	}
+
+	public Boolean findPerson(ArrayList<Person> nt, String name) {
+		if (getIndexByProperty(nt, name) >= 0)
 			return true;
-		} else {
-			System.out.println("Not Found: " + findName);
+		else
 			return false;
-		}
 	}
 
-	public void displayProfile(Person p) {
-		if (p != null) {
-			System.out.println("Name: " + p.getName() + ", (" + p.getGender() + "), " + p.getAge());
-
-			if (p instanceof Adult) {
-				Adult a = (Adult) p;
-
-				if (a.getInfo() != null)
-					System.out.println("Information: " + a.getInfo());
-
-				if (a.getSpouse() != null)
-					System.out.println("Spouse: " + a.getSpouse().getName());
-
-				findFriends(a);
-				findChildren(a);
-
-			}
-
-			if (p instanceof Child) {
-				Child c = (Child) p;
-				findParents(c);
-			}
-		}
-	}
-
-	public Boolean findChildren(Adult a) {
-		Boolean haveFamily = false;
-		ArrayList<Person> children = new ArrayList<>();
-		children = a.getChildren();
-		if (children.size() > 0) {
-			haveFamily = true;
-			System.out.println("Children: ");
-			for (int i = 0; i < children.size(); i++) {
-				System.out.println("- " + children.get(i).getName());
-			}
-		} else
-			System.out.println("Children: None");
-		return haveFamily;
-	}
-
-	public void findParents(Child c) {
-		System.out.println("Parents: ");
-		System.out.println("- " + c.getFather().getName());
-		System.out.println("- " + c.getMother().getName());
+	public void findPerson(ArrayList<Person> nt) {
+		String name = GlobalClass.getStringInput("Enter Person's Name: ");
+		if (findPerson(nt, name))
+			System.out.println("[" + nt.get(getIndexByProperty(nt, name)).getName() + "] found");
+		else
+			System.out.println("[" + name + "] not found");
 	}
 
 	public int getIndexByProperty(ArrayList<Person> nt, String name) {
 		int result = -1;
 		for (int i = 0; i < nt.size(); i++) {
-			if (nt.get(i).getName().equals(name)) {
+			if (nt.get(i).getName().toUpperCase().equals(name.toUpperCase())) {
 				result = i;
 				break;
 			}

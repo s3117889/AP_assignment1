@@ -1,7 +1,5 @@
 package AP_assignment1;
 
-import java.util.Scanner;
-
 /*
 Title: RMIT Advanced Programming Assignment 1 
 Developer(s): 
@@ -39,6 +37,8 @@ public class Menu {
 
 	public void displayMenu() {
 
+		GlobalClass.drawLine();
+
 		System.out.println("MiniNet Menu");
 
 		GlobalClass.drawLine();
@@ -48,10 +48,7 @@ public class Menu {
 
 		System.out.println((0) + ": " + _menuItems[0]);
 
-		System.out.println("");
-		System.out.print("Enter Option: ");
-		Scanner input = new Scanner(System.in);
-		_choice = input.nextInt();
+		_choice = GlobalClass.getIntegerInput("Enter Option: ");
 
 		if (_choice == 0)
 			_quit = true;

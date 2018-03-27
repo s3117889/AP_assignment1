@@ -2,9 +2,10 @@
 Instructions:
 Create folder AP_assignment1
 Extract all to folder AP_assignment1
+Run the following commands:
 javac AP_assignment1/*.java
 java AP_assignment1/MiniNet
-java MiniNet.java
+
 
 Select any option; the program will run through several scenarios. 
 The following scenarios are tested and results indicated.
@@ -31,6 +32,9 @@ The following scenarios are tested and results indicated.
 - updateProfile
 	- test person does not exist
 	- test person exist
+	- test adult with friends/spouse/children change age
+	- test child with parents change age
+	- test child change age who has friends within age-gap
 	
 - deletePerson
 	- test person does not exist
@@ -46,9 +50,9 @@ The following scenarios are tested and results indicated.
 	- test remove friend
 	- test add child
 	- test remove child
-	- test add spouse
+	- test add spouse (no spouse yet)
+	- test add spouse (spouse already exists)
 	- test remove spouse
-
 	
 - findFriends
 	- test both person exist/not exists combination
