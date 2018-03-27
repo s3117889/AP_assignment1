@@ -80,6 +80,8 @@ public class Driver {
 		connection.add(new Relationship(rb, GlobalClass.Friend, hn));
 		connection.add(new Relationship(rb, GlobalClass.Friend, cl));
 
+		connection.add(new Relationship(ra, GlobalClass.Friend, rs));
+
 		// end: initial set up of network
 	}
 
@@ -117,14 +119,53 @@ public class Driver {
 		} else if (menuItem == GlobalClass.deletePerson)
 			deletePerson();
 
-		else if (menuItem == GlobalClass.connectPerson)
-			connectPerson();
+		else if (menuItem == GlobalClass.connectPerson) {
+			String input = GlobalClass.getStringInput("Enter Name of First Person (Friend or Parent): ");
+			if (findPerson(network, input)) {
+				Person p = network.get(getIndexByProperty(network, input));
+				input = GlobalClass.getStringInput("Enter Name of Second Person (Friend or Child: ");
+				if (findPerson(network, input)) {
+					Person q = network.get(getIndexByProperty(network, input));
+					int conn = -1;
+					do {
+						System.out.println(GlobalClass.Friend + ". Friend");
+						System.out.println(GlobalClass.Spouse + ". Spouse");
+						System.out.println(GlobalClass.Father + ". Father");
+						System.out.println(GlobalClass.Mother + ". Mother");
+						conn = GlobalClass.getIntegerInput("Choose Relationship: ");
+					} while (conn > 3 | conn < 0);
 
-		else if (menuItem == GlobalClass.findFriends)
-			findFriends();
+					connectPerson(p, q, conn, connection);
+				} else
+					System.out.println("[" + input + "] not found");
+			} else
+				System.out.println("[" + input + "] not found");
+		}
 
-		else if (menuItem == GlobalClass.findFamily)
-			findFamily();
+		else if (menuItem == GlobalClass.findFriends) {
+			String input = GlobalClass.getStringInput("Enter Name of First Person (Friend): ");
+			if (findPerson(network, input)) {
+				Person p = network.get(getIndexByProperty(network, input));
+				input = GlobalClass.getStringInput("Enter Name of Second Person (Friend) ");
+				if (findPerson(network, input)) {
+					Person q = network.get(getIndexByProperty(network, input));
+					if (findFriends(p, q, connection))
+						System.out.println(p.getName() + " is a friend of " + q.getName());
+					else
+						System.out.println(p.getName() + " is NOT a friend of " + q.getName());
+				} else
+					System.out.println("[" + input + "] not found");
+			} else
+				System.out.println("[" + input + "] not found");
+		}
+
+		else if (menuItem == GlobalClass.findFamily) {
+			String name = GlobalClass.getStringInput("Enter Name: ");
+			if (findPerson(network, name)) {
+				Person p = network.get(getIndexByProperty(network, name));
+				findFamily(p, connection);
+			}
+		}
 	}
 
 	public void updateProfile(Person p) {
@@ -141,16 +182,38 @@ public class Driver {
 
 	}
 
-	public void connectPerson() {
-
+	public void connectPerson(Person p, Person q, int conn, ArrayList<Relationship> connection) {
+		connection.add(new Relationship(p, conn, q));
 	}
 
-	public void findFriends() {
+	public Boolean findFriends(Person p, Person q, ArrayList<Relationship> connection) {
 
+		Boolean found = false;
+
+		for (int i = 0; i < connection.size(); i++) {
+			if (connection.get(i).getPersonA().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.Friend
+					& connection.get(i).getPersonB().getName().equals(q.getName()))
+				found = true;
+
+			if (connection.get(i).getPersonA().getName().equals(q.getName())
+					& connection.get(i).getConn() == GlobalClass.Friend
+					& connection.get(i).getPersonB().getName().equals(p.getName()))
+				found = true;
+		}
+		return found;
 	}
 
-	public void findFamily() {
-
+	public void findFamily(Person p, ArrayList<Relationship> connection) {
+		if (p instanceof Adult) {
+			Adult a = (Adult) p;
+			findSpouse(p, connection);
+			findChildren(p, connection);
+		}
+		if (p instanceof Child) {
+			Child c = (Child) p;
+			findParents(c, connection);
+		}
 	}
 
 	public void displayProfile(Person p, ArrayList<Relationship> connection) {
@@ -182,7 +245,6 @@ public class Driver {
 					& connection.get(i).getConn() == GlobalClass.Mother)
 				System.out.println("Mother: " + connection.get(i).getPersonA().getName());
 		}
-
 	}
 
 	public void findFriends(Person p, ArrayList<Relationship> connection) {
@@ -211,7 +273,6 @@ public class Driver {
 				System.out.println(((count == 1) ? "Children :\n-" : "-") + connection.get(i).getPersonB().getName());
 			}
 		}
-
 	}
 
 	public void findSpouse(Person p, ArrayList<Relationship> connection) {
@@ -227,7 +288,6 @@ public class Driver {
 
 			}
 		}
-
 	}
 
 	public void addPerson(ArrayList<Person> nt) {
@@ -250,7 +310,6 @@ public class Driver {
 			}
 			System.out.println("[" + name + "] added to MiniNet.");
 		}
-
 	}
 
 	public Boolean findPerson(ArrayList<Person> nt, String name) {
