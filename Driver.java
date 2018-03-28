@@ -257,11 +257,96 @@ public class Driver {
 	}
 
 	public void connectPerson(Person p, Person q, int conn, ArrayList<Relationship> connection) {
-		connection.add(new Relationship(p, conn, q));
+		Boolean proceed = true;
+
+		// test child connect adult as parent, should be other way
+		if ((conn == GlobalClass.father || conn == GlobalClass.mother) & (p instanceof Child & q instanceof Adult)) {
+			System.out.println("To connect as parents, the Adult's name should be entered first.");
+			proceed = false;
+		}
+
+		// test adult connect child (correct gender)
+		if ((conn == GlobalClass.father & !p.getGender().equals("M"))
+				| (conn == GlobalClass.mother & !p.getGender().equals("F"))) {
+			System.out.println("To connect as parents, the Adult's gender must be correct.");
+			proceed = false;
+		}
+
+		// test adult connect child (parent already exists)
+		if ((conn == GlobalClass.father && findFather(q, connection)) & (p instanceof Adult & q instanceof Child)) {
+			System.out.println("Father already exists.");
+			proceed = false;
+		}
+
+		if ((conn == GlobalClass.mother && findMother(q, connection)) & (p instanceof Adult & q instanceof Child)) {
+			System.out.println("Mother already exists.");
+			proceed = false;
+		}
+
+		// test child connect friend (adult)
+		if (conn == GlobalClass.friend
+				& ((p instanceof Adult & q instanceof Child) | (p instanceof Child & q instanceof Adult))) {
+			System.out.println("Adults cannot have be friends with Children.");
+			proceed = false;
+
+		}
+		// test child below 2 connect friend
+		if ((p instanceof Child | q instanceof Child) & conn == GlobalClass.friend) {
+			if (p.getAge() <= GlobalClass.babyAge | q.getAge() <= GlobalClass.babyAge) {
+				System.out.println("Children below " + GlobalClass.babyAge + " cannot have friends.");
+				proceed = false;
+			}
+		}
+
+		// test connect spouse (1 not adult)
+		if ((p instanceof Child | q instanceof Child) & conn == GlobalClass.spouse) {
+			System.out.println("Children cannot have spouses.");
+			proceed = false;
+		}
+
+		// test connect spouse (spouse already exists)
+		if ((p instanceof Adult & q instanceof Adult) & conn == GlobalClass.spouse) {
+			if (findSpouse(p, connection, GlobalClass.suppressDetails)
+					| findSpouse(q, connection, GlobalClass.suppressDetails)) {
+				System.out.println("One or both adults already have spouse(s).");
+				proceed = false;
+			}
+		}
+
+		// test connect spouse (no spouse yet, both adults)
+		if ((p instanceof Adult & q instanceof Adult) & conn == GlobalClass.spouse) {
+			if (!findSpouse(p, connection, GlobalClass.suppressDetails)
+					& !findSpouse(q, connection, GlobalClass.suppressDetails)) {
+				System.out.println("Just Married!");
+			}
+		}
+
+		// test connect friends (connections already exists)
+		Relationship r = new Relationship(p, conn, q);
+
+		for (int i = 0; i < connection.size(); i++) {
+			if (r.getPersonA().getName().equals(connection.get(i).getPersonA().getName())
+					& r.getConn() == connection.get(i).getConn()
+					& r.getPersonB().getName().equals(connection.get(i).getPersonB().getName())) {
+				System.out.println("Connection already exists.");
+				proceed = false;
+			}
+		}
+
+		// test connect relationship already exists (other way)
+		for (int i = 0; i < connection.size(); i++) {
+			if (r.getPersonA().getName().equals(connection.get(i).getPersonB().getName())
+					& r.getConn() == connection.get(i).getConn()
+					& r.getPersonB().getName().equals(connection.get(i).getPersonA().getName())) {
+				System.out.println("Connection already exists.");
+				proceed = false;
+			}
+		}
+		if (proceed)
+			connection.add(new Relationship(p, conn, q));
 	}
 
 	public Boolean findFriends(Person p, Person q, ArrayList<Relationship> connection) {
-
 		Boolean found = false;
 
 		for (int i = 0; i < connection.size(); i++) {
@@ -323,6 +408,28 @@ public class Driver {
 				found = true;
 				if (print)
 					System.out.println("Mother: " + connection.get(i).getPersonA().getName());
+			}
+		}
+		return found;
+	}
+
+	public Boolean findFather(Person p, ArrayList<Relationship> connection) {
+		Boolean found = false;
+		for (int i = 0; i < connection.size(); i++) {
+			if (connection.get(i).getPersonB().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.father) {
+				found = true;
+			}
+		}
+		return found;
+	}
+
+	public Boolean findMother(Person p, ArrayList<Relationship> connection) {
+		Boolean found = false;
+		for (int i = 0; i < connection.size(); i++) {
+			if (connection.get(i).getPersonB().getName().equals(p.getName())
+					& connection.get(i).getConn() == GlobalClass.mother) {
+				found = true;
 			}
 		}
 		return found;

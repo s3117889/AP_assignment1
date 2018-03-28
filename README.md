@@ -51,15 +51,21 @@ The following scenarios are tested and results indicated with comments if applic
 	- test both person exist/not exists combination: passed
 	- test both person exist: passed
 	- test connect friends (no connections yet) : passed
-	- test connect spouse (no spouse yet) : not_done_yet
-	- test connect spouse (spouse already exists) : not_done_yet
-	- test connect friend already exists : not_done_yet
-	- test child connect friend (adult) : not_done_yet
+	- test connect spouse (1 not adult) : passed
+	- test connect spouse (no spouse yet, both adults) : passed
+	- test connect spouse (spouse already exists) : passed
+	- test connect relationship already exists : passed
+	- test connect relationship already exists (other way): passed
+	- test child connect friend (adult) : passed
 	- test child connect friend (child inside family) : not_done_yet
 	- test child connect friend (child outside family) : not_done_yet
 	- test child connect friend (child not within age-range) : not_done_yet
 	- test child connect friend (child within age-range) : not_done_yet
-	- test child below 2 connect friend : not_done_yet
+	- test child below 2 connect friend : passed
+	- test child connect adult as parent : passed, should be parent connect child
+	- test adult connect child (parent already exists): not_done_yet
+	- test adult connect child (parent does not exists): not_done_yet
+	- test adult connect child (correct gender) : passed
 	
 - findFriends (input person A, input person B)
 	- test both person exist/not exists combination : passed
