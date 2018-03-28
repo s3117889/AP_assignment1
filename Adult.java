@@ -1,13 +1,17 @@
 package AP_assignment1;
 
-import java.util.ArrayList;
+/*
+Title: RMIT Advanced Programming Assignment 1 
+Developer(s): 
+- Sherri McRae <s3117889@student.rmit.edu.au>
+- Rudi Basiran <s3665980@student.rmit.edu.au> 
+Date Created: 18 March 2018 
+Description: Adult class 
+ */
 
 public class Adult extends Person {
 
-	Person _spouse;
 	String _info;
-	ArrayList<Person> _friends = new ArrayList<>();
-	ArrayList<Person> _children = new ArrayList<>();
 
 	public Adult(String name, int age, String g, String info) {
 		super.setName(name);
@@ -28,56 +32,8 @@ public class Adult extends Person {
 		super.setAge(age);
 	}
 
-	public Person getSpouse() {
-		return _spouse;
-	}
-
-	public void setSpouse(Person p) {
-		_spouse = p;
-	}
-
-	public void addFriend(Person p) {
-		_friends.add(p);
-	}
-
-	public ArrayList<Person> getFriends() {
-		return _friends;
-	}
-
-	public ArrayList<Person> getChildren() {
-		return _children;
-	}
-
-	public void addChild(Person p) {
-		_children.add(p);
-	}
-
-	public void addConnection(Person a, String role) {
-
-		if (role == "Friend") {
-			// System.out.println(this.getName() + ";" + a.getName());
-			_friends.add(a);
-			a.addFriend(this);
-		}
-
-		else if (role == "Spouse") {
-			_spouse = a;
-			a.setSpouse(this);
-
-			if (_children != null) {
-				for (int i = 0; i < _children.size(); i++) {
-					a.addChild(_children.get(i));
-				}
-			}
-		}
-
-		else if (role == "Child") {
-			this.addChild(a);
-
-			if (_spouse != null) {
-				_spouse.addChild(a);
-			}
-		}
+	public void setInfo(String info) {
+		_info = info;
 	}
 
 	public String getInfo() {
