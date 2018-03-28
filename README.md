@@ -33,32 +33,33 @@ The following scenarios are tested and results indicated with comments if applic
 - updateProfile
 	- test person does not exist: passed
 	- test person exist: passed
-	- test adult with friends/spouse/children change age
-	- test child with parents change age
-	- test child change age who has friends within age-gap
+	- test adult with spouse change age : passed
+	- test adult with spouse change age : passed
+	- test child with parents change age : passed
+	- test child change age who has friends within age-gap : passed
+	- test child change age to baby (with friends): passed
+	- test child change age to baby (without friends): passed
 	
 - deletePerson
-	- test person does not exist
-	- test person exist
-	- test delete person with spouse
-	- test delete person with friends
-	- test delete child
+	- test person does not exist: passed
+	- test person exist: passed
+	- test delete person with spouse: passed
+	- test delete person with friends: passed
+	- test delete child: passed
 	
 - connectPerson
 	- test both person exist/not exists combination: passed
 	- test both person exist: passed
 	- test connect friends (no connections yet) : passed
-	- test connect child
-	- test connect spouse (no spouse yet)
-	- test connect spouse (spouse already exists)
-	- test connect friend already exists
-	- test connect child-father-adult
-	- test child connect friend (adult)
-	- test child connect friend (child inside family)
-	- test child connect friend (child outside family)
-	- test child connect friend (child not within age-range)
-	- test child connect friend (child within age-range)
-	- test child below 2 connect friend
+	- test connect spouse (no spouse yet) : not_done_yet
+	- test connect spouse (spouse already exists) : not_done_yet
+	- test connect friend already exists : not_done_yet
+	- test child connect friend (adult) : not_done_yet
+	- test child connect friend (child inside family) : not_done_yet
+	- test child connect friend (child outside family) : not_done_yet
+	- test child connect friend (child not within age-range) : not_done_yet
+	- test child connect friend (child within age-range) : not_done_yet
+	- test child below 2 connect friend : not_done_yet
 	
 - findFriends (input person A, input person B)
 	- test both person exist/not exists combination : passed
