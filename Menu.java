@@ -6,7 +6,8 @@ Developer(s):
 - Sherri McRae <s3117889@student.rmit.edu.au>
 - Rudi Basiran <s3665980@student.rmit.edu.au> 
 Date Created: 18 March 2018 
-Description: Driver class 
+Description: Menu class 
+Notes: --
  */
 
 public class Menu {

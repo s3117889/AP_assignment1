@@ -7,6 +7,7 @@ Developer(s):
 - Rudi Basiran <s3665980@student.rmit.edu.au> 
 Date Created: 18 March 2018 
 Description: Person class 
+Notes: --
  */
 
 public abstract class Person {

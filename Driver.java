@@ -5,10 +5,12 @@ import java.util.ArrayList;
 /*
 Title: RMIT Advanced Programming Assignment 1 
 Developer(s): 
-- Rudi Basiran <s3665980@student.rmit.edu.au> 
 - Sherri McRae <s3117889@student.rmit.edu.au>
-Date Created: 21 March 2018 
-Description: Driver class 
+- Rudi Basiran <s3665980@student.rmit.edu.au> 
+
+Date Created: 18 March 2018 
+Description: Driver class (formerly Network class)
+Notes: Constructor will load initial people and relationships. The menuAction method acts upon user menu selection.
  */
 
 public class Driver {
@@ -22,64 +24,77 @@ public class Driver {
 		// otherwise constructor is normally empty
 
 		// creating people
-		Adult rb = new Adult("Rudi Basiran", 48, "M", "Systems Analyst");
-		Adult aa = new Adult("Ahysa Ahmad", 45, "F");
-		Child ra = new Child("Rida Aqyda", 7, "F");
+		Adult rudi = new Adult("Rudi Basiran", 48, "M", "Systems Analyst");
+		Adult ahysa = new Adult("Ahysa Ahmad", 45, "F");
+		Child rida = new Child("Rida Aqyda", 7, "F");
 
-		Adult as = new Adult("Arthur Simanjuntak", 45, "M", "Wave Engineer");
-		Adult sr = new Adult("Sheree Reaver", 45, "F", "Civil Engineer");
-		Child rs = new Child("Rangi Simanjuntak", 8, "M");
-		Child ts = new Child("Tane Simanjuntak", 6, "M");
+		Adult arthur = new Adult("Arthur Simanjuntak", 45, "M", "Wave Engineer");
+		Adult sheree = new Adult("Sheree Reaver", 45, "F", "Civil Engineer");
+		Child rangi = new Child("Rangi Simanjuntak", 8, "M");
+		Child tane = new Child("Tane Simanjuntak", 6, "M");
 
-		Adult aj = new Adult("Andrew James", 45, "M", "HR Officer");
-		Adult nj = new Adult("Nat James", 45, "F");
-		Child cj = new Child("Callum James", 8, "M");
-		Adult dj = new Adult("Dianne James", 75, "F");
+		Adult andrew = new Adult("Andrew James", 45, "M", "HR Officer");
+		Adult nat = new Adult("Nat James", 45, "F");
+		Child callum = new Child("Callum James", 8, "M");
 
-		Adult sm = new Adult("Sherri McRae", 43, "F", "Student");
-		Adult hn = new Adult("Huani Neupane", 28, "F", "Student");
-		Adult cl = new Adult("Chloe Loh", 25, "F", "Student");
-		Adult ah = new Adult("Ahmed Abdullah", 28, "M", "Student");
+		Adult rasyid = new Adult("Rasyid", 42, "M");
+		Adult amalina = new Adult("Amalina", 42, "F");
+		Child sabrina = new Child("Sabrina", 15, "F");
+		Child riyan = new Child("Riyan", 13, "M");
+
+		Adult sherri = new Adult("Sherri McRae", 43, "F", "Student");
+		Adult huani = new Adult("Huani Neupane", 28, "F", "Student");
+		Adult chloe = new Adult("Chloe Loh", 25, "F", "Student");
+		Adult wanyi = new Adult("Wanyi Beh", 32, "F", "Student");
 
 		// adding people to the network
-		network.add(rb);
-		network.add(aa);
-		network.add(ra);
-		network.add(as);
-		network.add(sr);
-		network.add(rs);
-		network.add(ts);
+		network.add(rudi);
+		network.add(ahysa);
+		network.add(rida);
+		network.add(arthur);
+		network.add(sheree);
+		network.add(rangi);
+		network.add(tane);
 
-		network.add(aj);
-		network.add(nj);
-		network.add(cj);
-		network.add(dj);
+		network.add(andrew);
+		network.add(nat);
+		network.add(callum);
 
-		network.add(sm);
-		network.add(hn);
-		network.add(cl);
-		network.add(ah);
+		network.add(rasyid);
+		network.add(amalina);
+		network.add(sabrina);
+		network.add(riyan);
+
+		network.add(sherri);
+		network.add(huani);
+		network.add(chloe);
+		network.add(wanyi);
 
 		// adding connections
-		connection.add(new Relationship(rb, GlobalClass.spouse, aa));
-		connection.add(new Relationship(rb, GlobalClass.father, ra));
-		connection.add(new Relationship(aa, GlobalClass.mother, ra));
+		connection.add(new Relationship(rudi, GlobalClass.spouse, ahysa));
+		connection.add(new Relationship(rudi, GlobalClass.father, rida));
+		connection.add(new Relationship(ahysa, GlobalClass.mother, rida));
 
-		connection.add(new Relationship(as, GlobalClass.spouse, sr));
-		connection.add(new Relationship(as, GlobalClass.father, rs));
-		connection.add(new Relationship(sr, GlobalClass.mother, rs));
+		connection.add(new Relationship(arthur, GlobalClass.spouse, sheree));
+		connection.add(new Relationship(arthur, GlobalClass.father, rangi));
+		connection.add(new Relationship(sheree, GlobalClass.mother, rangi));
 
-		connection.add(new Relationship(as, GlobalClass.father, ts));
-		connection.add(new Relationship(sr, GlobalClass.mother, ts));
+		connection.add(new Relationship(arthur, GlobalClass.father, tane));
+		connection.add(new Relationship(sheree, GlobalClass.mother, tane));
 
-		connection.add(new Relationship(aj, GlobalClass.spouse, nj));
-		connection.add(new Relationship(aj, GlobalClass.father, cj));
+		connection.add(new Relationship(andrew, GlobalClass.father, callum));
 
-		connection.add(new Relationship(rb, GlobalClass.friend, sm));
-		connection.add(new Relationship(rb, GlobalClass.friend, hn));
-		connection.add(new Relationship(rb, GlobalClass.friend, cl));
+		connection.add(new Relationship(rasyid, GlobalClass.spouse, amalina));
+		connection.add(new Relationship(rasyid, GlobalClass.father, sabrina));
+		connection.add(new Relationship(amalina, GlobalClass.mother, sabrina));
+		connection.add(new Relationship(rasyid, GlobalClass.father, riyan));
+		connection.add(new Relationship(amalina, GlobalClass.mother, riyan));
 
-		connection.add(new Relationship(ra, GlobalClass.friend, rs));
+		connection.add(new Relationship(rudi, GlobalClass.friend, sherri));
+		connection.add(new Relationship(rudi, GlobalClass.friend, huani));
+		connection.add(new Relationship(rudi, GlobalClass.friend, chloe));
+
+		connection.add(new Relationship(rida, GlobalClass.friend, rangi));
 
 		// end: initial set up of network
 	}
@@ -102,6 +117,8 @@ public class Driver {
 		}
 
 		else if (menuItem == GlobalClass.displayAllProfile) {
+			// go through the whole network and show their whole profiles
+			// reuse already defined displayProfile()
 			for (int i = 0; i < network.size(); i++) {
 				displayProfile(network.get(i), connection);
 				GlobalClass.drawLine();
@@ -116,6 +133,7 @@ public class Driver {
 				System.out.println("[" + name + "] not found");
 
 		} else if (menuItem == GlobalClass.deletePerson) {
+			// delete person and assume ok to delete their relationships if any
 			String name = GlobalClass.getStringInput("Enter Name: ");
 			if (findPerson(network, name)) {
 				Person p = network.get(getIndexByProperty(network, name));
@@ -131,6 +149,7 @@ public class Driver {
 				if (findPerson(network, input)) {
 					Person q = network.get(getIndexByProperty(network, input));
 					int conn = -1;
+					// loop till correct role is selected
 					do {
 						System.out.println(GlobalClass.friend + ". " + GlobalClass.roleDesc[GlobalClass.friend]);
 						System.out.println(GlobalClass.spouse + ". " + GlobalClass.roleDesc[GlobalClass.spouse]);
@@ -147,6 +166,8 @@ public class Driver {
 		}
 
 		else if (menuItem == GlobalClass.findFriends) {
+			// find out where Person A is friends with Person B
+			// possible to extend to check all relationships instead in future
 			String input = GlobalClass.getStringInput("Enter Name of First Person (Friend): ");
 			if (findPerson(network, input)) {
 				Person p = network.get(getIndexByProperty(network, input));
@@ -164,11 +185,13 @@ public class Driver {
 		}
 
 		else if (menuItem == GlobalClass.findFamily) {
+			// list down spouse and children
 			String name = GlobalClass.getStringInput("Enter Name: ");
 			if (findPerson(network, name)) {
 				Person p = network.get(getIndexByProperty(network, name));
 				findFamily(p, connection);
-			}
+			} else
+				System.out.println("[" + name + "] not found");
 		}
 	}
 
@@ -255,13 +278,6 @@ public class Driver {
 
 	}
 
-	public Person getFather(Child c, ArrayList<Relationship> connection) {
-		Person p = c;
-
-		return p;
-
-	}
-
 	public void connectPerson(Person p, Person q, int conn, ArrayList<Relationship> connection) {
 		Boolean proceed = true;
 
@@ -274,7 +290,8 @@ public class Driver {
 					for (int j = 0; j < connection.size(); j++) {
 						// check if q's father is same as p's
 						if (connection.get(j).getPersonB().getName().equals(q.getName())
-								& connection.get(j).getConn() == GlobalClass.father) {
+								& connection.get(j).getConn() == GlobalClass.father & connection.get(j).getPersonA()
+										.getName().equals(connection.get(i).getPersonA().getName())) {
 							System.out.println(
 									p.getName() + " and " + q.getName() + " are siblings; they cannot be friends");
 							proceed = false;
@@ -282,7 +299,21 @@ public class Driver {
 						}
 					}
 				}
-
+				// find p's mother
+				if (connection.get(i).getPersonB().getName().equals(p.getName())
+						& connection.get(i).getConn() == GlobalClass.mother) {
+					for (int j = 0; j < connection.size(); j++) {
+						// check if q's father is same as p's
+						if (connection.get(j).getPersonB().getName().equals(q.getName())
+								& connection.get(j).getConn() == GlobalClass.mother & connection.get(j).getPersonA()
+										.getName().equals(connection.get(i).getPersonA().getName())) {
+							System.out.println(
+									p.getName() + " and " + q.getName() + " are siblings; they cannot be friends");
+							proceed = false;
+							break;
+						}
+					}
+				}
 			}
 		}
 		// test child connect friend (child within age-range)
@@ -403,11 +434,47 @@ public class Driver {
 			Adult a = (Adult) p;
 			findSpouse(p, connection, GlobalClass.showDetails);
 			findChildren(p, connection, GlobalClass.showDetails);
+
 		}
 		if (p instanceof Child) {
 			Child c = (Child) p;
 			findParents(c, connection, GlobalClass.showDetails);
+			findSiblings(p, connection, GlobalClass.showDetails);
 		}
+	}
+
+	public Boolean findSiblings(Person p, ArrayList<Relationship> connection, Boolean print) {
+		Boolean found = false;
+		ArrayList<Person> siblings = new ArrayList<>();
+
+		for (int i = 0; i < connection.size(); i++) {
+			// find parents of child first
+			if (connection.get(i).getPersonB().getName().equals(p.getName())
+					& (connection.get(i).getConn() == GlobalClass.father
+							| connection.get(i).getConn() == GlobalClass.mother)) {
+
+				for (int j = 0; j < connection.size(); j++) {
+					// match Person A and then get Person B (sibling) if it's not the same as
+					// child's
+					if (connection.get(j).getPersonA().getName().equals(connection.get(i).getPersonA().getName())
+							& (connection.get(j).getConn() == GlobalClass.father
+									| connection.get(j).getConn() == GlobalClass.mother)
+							& !connection.get(j).getPersonB().getName().equals(p.getName())) {
+						// if not already in, add into arraylist
+						if (!siblings.contains(connection.get(j).getPersonB()))
+							siblings.add(connection.get(j).getPersonB());
+					}
+				}
+			}
+		}
+		int count = 0;
+		for (int i = 0; i < siblings.size(); i++) {
+			count++;
+			found = true;
+			if (print)
+				System.out.println(((count == 1) ? "Siblings :\n-" : "-") + siblings.get(i).getName());
+		}
+		return found;
 	}
 
 	public void displayProfile(Person p, ArrayList<Relationship> connection) {

@@ -9,6 +9,7 @@ Developer(s):
 - Sherri McRae <s3117889@student.rmit.edu.au>
 Date Created: 22 March 2018 
 Description: GlobalClass
+Notes: Global variables and re-usable functions so that they need not be declared/created anew each time
  */
 
 public class GlobalClass {

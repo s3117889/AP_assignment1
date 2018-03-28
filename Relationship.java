@@ -7,6 +7,7 @@ Developer(s):
 - Sherri McRae <s3117889@student.rmit.edu.au>
 Date Created: 27 March 2018 
 Description: Relationship class 
+Notes: How Person A is connected to Person B
  */
 
 public class Relationship {

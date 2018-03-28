@@ -7,6 +7,7 @@ Developer(s):
 - Rudi Basiran <s3665980@student.rmit.edu.au> 
 Date Created: 18 March 2018 
 Description: Adult class 
+Notes: --
  */
 
 public class Adult extends Person {
@@ -24,7 +25,6 @@ public class Adult extends Person {
 		super.setName(name);
 		super.setAge(age);
 		super.setGender(g);
-
 	}
 
 	public Adult(String name, int age) {

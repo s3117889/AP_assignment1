@@ -7,10 +7,10 @@ Developer(s):
 - Rudi Basiran <s3665980@student.rmit.edu.au> 
 Date Created: 18 March 2018 
 Description: Child class 
+Notes: --
  */
 
 public class Child extends Person {
-
 	public Child(String name, int age, String g) {
 		super.setName(name);
 		super.setAge(age);
